@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-40929.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>一种优雅的Golang的库插件注册加载机制</title>
+        <meta name="description" content="你好，我是轩脉刃。 最近看到一个内部项目的插件加载机制，非常赞。当然这里说的插件并不是指的golang原生的可以在buildmode中加载指定so文件的那种加载机制。而是软件设计上的「插件」。如果你的" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="#">关于</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">联系</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                一种优雅的Golang的库插件注册加载机制                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				</h1> <p>你好，我是轩脉刃。</p> <p>最近看到一个内部项目的插件加载机制，非常赞。当然这里说的插件并不是指的golang原生的可以在buildmode中加载指定so文件的那种加载机制。而是软件设计上的「插件」。如果你的软件是一个框架，或者一个平台性产品，想要提升扩展性，即可以让第三方进行第三方库开发，最终能像搭积木一样将这些库组装起来。那么就可能需要这种库加载机制。</p> <p>我们的目标是什么？对第三方库进行某种库规范，只要按照这种库规范进行开发，这个库就可以被加载到框架中。</p> <p>我们先定义一个插件的数据结构，这里肯定是需要使用接口来规范，这个可以根据你的项目自由发挥，比如我希望插件有一个Setup方法来在启动的时候加载即可。然后我就定义如下的Plugin结构。</p> <pre><code class="language-go">type Plugin interface{   Name() string   Setup(config map[string]string) error }</code></pre> <p>而在框架启动的时候，我启动了一个如下的全局变量：</p> <pre><code class="language-go">var plugins map[string]Plugin</code></pre> <h2 id="注册">注册</h2> <p>有人可能会问，这里有了加载函数setup，但是为什么没有注册逻辑呢？</p> <p>答案是注册的逻辑放在库的init函数中。</p> <p>即框架还提供了一个注册函数。</p> <pre><code class="language-go">// package plugin  Register(plugin Plugin)</code></pre> <p>这个register就是实现了将第三方plugin放到plugins全局变量中。</p> <p>所以第三方的plugin库大致实现如下：</p> <pre><code>package MyPlugin  type MyPlugin struct{ }  func (m *MyPlugin) Setup(config map[string]string) error { 	// TODO }  func (m *MyPlugin) Name() string { 	return "myPlugin" }  func init() { 	plugin.Register(&amp;MyPlugin) }</code></pre> <p>这样注册的逻辑就变成了，如果你要加载一个插件，那么你在main.go中直接以 _ import的形式引入即可。</p> <pre><code>package main  _ import "github.com/foo/myplugin"  func main() {  }</code></pre> <p>整体的感觉，这样子插件的注册就被“隐藏”到import中了。</p> <h2 id="加载">加载</h2> <p>注册的逻辑其实看起来也平平无奇，但是加载的逻辑就考验细节了。</p> <p>首先插件的加载其实有两点需要考虑：</p> <ul> <li>配置</li> <li>依赖</li> </ul> <p>配置指的是插件一定是有某种配置的，这些配置以配置文件yaml中plugins.myplugin的路径存在。</p> <pre><code>plugins: 	myplugin: 		foo: bar</code></pre> <p>其实我对这种实现持保留意见。配置文件以一个文件中配置项的形式存在，好像不如以配置文件的形式存在，即以config/plugins/myplugin.yaml 的文件。</p> <p>这样不会出现一个大配置文件的问题。毕竟每个配置文件本身就是一门DSL语言。如果你将配置文件的逻辑变复杂，一定会有很多附带的bug是由于配置文件错误导致的。</p> <p>第二个说的是依赖。插件A依赖与插件B，那么这里就有加载函数Setup的先后顺序了。这种先后顺序如果纯依赖用户的“经验”，将某个插件的Setup调用放在某个插件的Setup调用之前，是非常痛苦的。（虽然一定是有办法可以做到）。更好的办法是依赖于框架自身的加载机制来进行加载。</p> <p>首先我们在plugin包中定义一个接口：</p> <pre><code class="language-go">type Depend interface{ 	DependOn() []string }</code></pre> <p>如果我的插件依赖一个名字为 “fooPlugin” 的插件，那么我的插件 MyPlugin就会实现这个接口。</p> <pre><code>package MyPlugin  type MyPlugin struct{ }  func (m *MyPlugin) Setup(config map[string]string) error { 	// TODO }  func (m *MyPlugin) Name() string { 	return "myPlugin" }  func init() { 	plugin.Register(&amp;MyPlugin) }  func (m *MyPlugin) DependOn() []string { 	return []string{"fooPlugin"} }</code></pre> <p>在最终加载所有插件的时候，我们并不是简单地将所有插件调用Setup，而是使用一个channel，将所有插件放在channel中，然后一个个调用Setup，遇到有Depend其他插件的，且依赖插件还未被加载，则将当前插件放在队列最后（重新塞入channel）。</p> <pre><code>var setupStatus map[string]bool  // 获取所有注册插件 func loadPlugins() (plugin chan Plugin, setupStatus map[string]bool) { 	// 这里定义一个长度为10的队列 	var sortPlugin = make(chan Plugin, 10) 	var setupStatus = make[string]bool 	 	// 所有的插件 	for name, plugin := range plugins { 		sortPlugin &lt;- plugin 		setupStatus[name] = false 	} 	 	return sortPlugin, setupStatus }  // 加载所有插件 func SetupPlugins(pluginChan chan Plugin, setupStatus map[string]bool) error { 	num := len(pluginChan) 	for num &gt; 0 { 		plugin &lt;- pluginChan 		 		canSetup := true 		if deps, ok := p.(Depend); ok { 			depends := deps.DependOn() 			for _, dependName := range depends{ 				if _, setuped := setupStatus[dependName]; !setup { 						// 有未加载的插件 						canSetup = false 						break 				} 			} 		} 		 		// 如果这个插件能被setup 		if canSetup { 			plugin.Setup(xxx) 			setupStatus[p.Name()] = true 		} else { 			// 如果插件不能被setup, 这个plugin就塞入到最后一个队列 			pluginChan &lt;- plugin 		} 	} 	return nil }</code></pre> <p>上面这段代码最精妙的就是使用了一个有buffer的channel作为一个队列，消费队列一方SetupPlugins，除了消费队列，也有可能生产数据到队列，这样就保证了队列中所有plugin都是被按照标记的依赖被顺序加载的。</p> </h1> <p>这种插件的注册和加载机制是非常优雅的。注册方面，巧妙使用隐式import来做插件的注册。而加载方面，巧妙使用有buffer的channel作为加载队列。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-40435.htm">动物疫苗行业标准是什么 动物疫苗行业标准是什么意思</a></p>
+                                        <p>下一个：<a href="/news/article-40930.htm">宠物粮食市场份额分析图 宠物粮食市场份额分析图</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-40930.htm" title="宠物粮食市场份额分析图 宠物粮食市场份额分析图">宠物粮食市场份额分析图 宠物粮食市场份额分析图</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-14-node-share.htm" title="1月14日最新机场订阅 | 22.5M/S|2025年SSR/V2ray/Shadowrocket/Clash免费节点地址链接分享">1月14日最新机场订阅 | 22.5M/S|2025年SSR/V2ray/Shadowrocket/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-38956.htm" title="宠物粮食市场份额预测分析 宠物粮食市场份额预测分析报告">宠物粮食市场份额预测分析 宠物粮食市场份额预测分析报告</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-13-free-ssr-node.htm" title="1月13日最新机场订阅 | 19.7M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享">1月13日最新机场订阅 | 19.7M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-39448.htm" title="免费宠物领养网（免费宠物领养网）">免费宠物领养网（免费宠物领养网）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-11-node-share-links.htm" title="1月11日最新机场订阅 | 18M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">1月11日最新机场订阅 | 18M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-clash-subscribe.htm" title="1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享">1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-38780.htm" title="动物疫苗经销商名单公示时间（动物疫苗厂家排名）">动物疫苗经销商名单公示时间（动物疫苗厂家排名）</a></li>
+                        <li class="py-2"><a href="/news/article-39954.htm" title="动物疫苗经营范围有哪些类型（动物疫苗经营许可）">动物疫苗经营范围有哪些类型（动物疫苗经营许可）</a></li>
+                        <li class="py-2"><a href="/news/article-39953.htm" title="在同一个类中，一个方法调用另外一个有注解（比如@Async，@Transational）的方法，注解失效的原因和解决方法">在同一个类中，一个方法调用另外一个有注解（比如@Async，@Transational）的方法，注解失效的原因和解决方法</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">18</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
