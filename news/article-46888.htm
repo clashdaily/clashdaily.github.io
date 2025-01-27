@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-46888.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Azure DevOps 中 Dapr项目自动部署流程实践</title>
+        <meta name="description" content="注：本文中主要讨论 .NET6.0项目在 k8s 中运行的 Dapr 的持续集成流程, 但实际上不是Dapr的项目部署到K8s也是相同流程，只是k8s的yaml配置文件有所不同  基于 Dapr 的项" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-46888.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="Azure DevOps 中 Dapr项目自动部署流程实践" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/042db71df6c76da67d21ce8f371f8c79.webp" />
+        <meta property="og:release_date" content="2025-01-27T08:18:19" />
+    <meta property="og:updated_time" content="2025-01-27T08:18:19" />
+        <meta property="og:description" content="注：本文中主要讨论 .NET6.0项目在 k8s 中运行的 Dapr 的持续集成流程, 但实际上不是Dapr的项目部署到K8s也是相同流程，只是k8s的yaml配置文件有所不同  基于 Dapr 的项" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Azure DevOps 中 Dapr项目自动部署流程实践">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="#">关于</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">联系</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                Azure DevOps 中 Dapr项目自动部署流程实践                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<p>注：本文中主要讨论 .NET6.0项目在 k8s 中运行的 Dapr 的持续集成流程, 但实际上不是Dapr的项目部署到K8s也是相同流程，只是k8s的yaml配置文件有所不同</p> </h1> <p>基于 Dapr 的项目持续集成包含以下流程</p> <ol> <li>编译并打包项目</li> <li>构建 Dockerfile,并推送镜像<code>push image</code>至私有仓库</li> <li>准备 k8s 部署的配置文件</li> <li>通过 kubectl 部署镜像至 k8s 中</li> </ol> <p><strong>这里面有多种方案</strong></p> <table> <thead> <tr> <th style="text-align: left">-</th> <th style="text-align: left">Pipeline的操作</th> <th style="text-align: left">Publish的操作</th> <th style="text-align: left">优点</th> <th style="text-align: left">缺点</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">1. 直接BuildImage并发布</td> <td style="text-align: left">1. 直接使用 Docker Build Image 2. push image 3.复制Yaml至Artifacts</td> <td style="text-align: left">K8s 直接发布 对应版本的yaml + 指定Image</td> <td style="text-align: left">直接,操作简单</td> <td style="text-align: left">1. 产生大量不必要的Image 2.持续集成消耗时间较长3.每次持续集成都有Image产生</td> </tr> <tr> <td style="text-align: left">2. Publish时再进行Build</td> <td style="text-align: left">1. 仅 dotnet publish zip</td> <td style="text-align: left">1. Build Image / Push Image （可选 ）2. K8S 部署+指定Image</td> <td style="text-align: left">单次部署减慢，多次增快</td> <td style="text-align: left">部署过程会比直接接取镜像慢</td> </tr> <tr> <td style="text-align: left">3. 仅发布 Zip，并Build一个使用Volume的专署镜像</td> <td style="text-align: left">仅 dotnet publish zip</td> <td style="text-align: left">使用编译好的镜像修改Volume参数</td> <td style="text-align: left">快</td> <td style="text-align: left">跨环境部署时会导致对于文件系统依赖过重</td> </tr> </tbody> </table> <p>鉴于以上优缺点，最终我选择了<code>第二种</code>折衷方案，这种方案既不影响持续集成的速度，也不会产生过多的镜像，只是在部署时会产生多余的镜像构建时间。</p> </h1> <ul> <li>每个要发布的API的 project 文件夹中增加以下文件 <ul> <li>dapr.yaml</li> <li>Dockerfile</li> </ul> </li> </ul> <p><strong>dapr.yaml</strong></p> <pre><code class="language-yaml">kind: Deployment apiVersion: apps/v1 metadata:   name: demo   namespace: dapr-api   labels:     app: .api     service: demo spec:   replicas: 1   selector:     matchLabels:       service: demo   template:     metadata:       labels:         app: .api         service: demo       annotations:         dapr.io/enabled: "true"         dapr.io/app-id: "demo-api"         dapr.io/app-port: "80"         dapr.io/log-as-json: "true"     spec:       containers:         - name: demo-api           image: 仓库地址/镜像名:220310.13           ports:             - name: http               containerPort: 80               protocol: TCP           imagePullPolicy: IfNotPresent --- kind: Service apiVersion: v1 metadata:   name: demo-api   namespace: dapr-api   labels:     app: .api     service: demo spec:   type: NodePort   selector:     service: demo   ports:   - protocol: TCP     port: 80     targetPort: 80     nodePort: 30004</code></pre> <p><strong>Dockerfile</strong></p> <pre><code class="language-Dockerfile">FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final WORKDIR /app EXPOSE 80 COPY ["./projectfolder", "/app"] ENTRYPOINT ["dotnet", "projectdll.dll"]</code></pre> <p>这两个文件需要每个项目不同，后面在编译和部署流程中会用到。</p> </h1> <pre><code class="language-yaml">trigger:   batch: true  pool:   name: Default name: $(Date:yy)$(Date:MM)$(Date:dd)$(Rev:.r)  variables:     BuildConfiguration: 'Release' steps: - task: UseDotNet@2   displayName: 'Check and Install .NET SDK 6.0'   inputs:     version: '6.0.x'     includePreviewVersions: false  - task: DotNetCoreCLI@2   displayName: 'Publish to zip'   inputs:     command: publish     publishWebProjects: false     projects: './src/projectfolder/project.csproj'     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) -v n'     zipAfterPublish: false     workingDirectory: '$(Build.SourcesDirectory)/src' ## 复制上文中的两个文件到 Artifact - task: CopyFiles@2   displayName: 'Copy dapr.yaml to: $(build.artifactstagingdirectory)'   inputs:     SourceFolder: './src/${{ parameters.project }}/'     Contents: |       Dockerfile       dapr.yaml     TargetFolder: '$(build.artifactstagingdirectory)'  - task: PublishBuildArtifacts@1   displayName: 'Publish Artifact'   inputs:     PathtoPublish: '$(build.artifactstagingdirectory)'</code></pre> </h1> <p>发布流程新建两个作业<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/beab1c99ed028477b7f9a643e0a4bcd0.jpg" alt="Azure DevOps 中 Dapr项目自动部署流程实践"></p> <p><strong>作业1 Build Image</strong></p> <pre><code class="language-yaml">variables:   image: '自定义镜像名'  steps: - task: Docker@2   displayName: buildAndPush   inputs:     containerRegistry: harbor     repository: '$(image)'     Dockerfile: '$(System.DefaultWorkingDirectory)/_dapr-demo/drop/Dockerfile'     tags: '$(Build.BuildNumber)'</code></pre> <p><strong>作业2 KubeDeploy</strong></p> <pre><code class="language-yaml">variables:   image: '自定义镜像名,与上文须一致'  steps: - task: KubernetesManifest@0   displayName: deploy   inputs:     kubernetesServiceConnection: online     namespace: '$(ns)' ## k8s的部署目标命名空间     strategy: canary ## 灰度部署策略     percentage: 50     manifests: '$(System.DefaultWorkingDirectory)/_dapr-demo/drop/dapr.yaml'     containers: '$(harborUrl)/$(image):$(Build.BuildNumber)'</code></pre> <p>这样，在首次部署时执行全部管道。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/000a16441986fbd2191e67ed1f76d70a.jpg" alt="Azure DevOps 中 Dapr项目自动部署流程实践"></p> <p>后期回滚版本只，手动执行第二个管理即<code>KubeDeploy</code>即可<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/4328a786a952d73e05a5099e3fe665e5.jpg" alt="Azure DevOps 中 Dapr项目自动部署流程实践"></p> </h1> <p>本流程全部依赖 Azure DevOps 自身的配置，并不依赖 Agent 环境配置，如果依赖 Agent 环境的话有更多做法。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-46381.htm">南京哪里可以免费领养猫咪的地方（南京哪里能领养猫）</a></p>
+                                        <p>下一个：<a href="/news/article-46889.htm">小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-45906.htm" title="我的树莓派 Raspberry Pi Zero 2W 折腾笔记，记录一些遇到的问题和解决办法">我的树莓派 Raspberry Pi Zero 2W 折腾笔记，记录一些遇到的问题和解决办法</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-clash-subscribe.htm" title="1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享">1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-14-node-share.htm" title="1月14日最新机场订阅 | 22.5M/S|2025年SSR/V2ray/Shadowrocket/Clash免费节点地址链接分享">1月14日最新机场订阅 | 22.5M/S|2025年SSR/V2ray/Shadowrocket/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-42422.htm" title="厦门哪里可以免费领养猫（厦门免费领养猫正规网）">厦门哪里可以免费领养猫（厦门免费领养猫正规网）</a></li>
+                        <li class="py-2"><a href="/news/article-41417.htm" title="领养回访多久可以结束 领养回访多久可以结束呢">领养回访多久可以结束 领养回访多久可以结束呢</a></li>
+                        <li class="py-2"><a href="/news/article-40434.htm" title="宠物美容师待遇如何（宠物美容师工资待遇）">宠物美容师待遇如何（宠物美容师工资待遇）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-18-node-share-links.htm" title="1月18日最新机场订阅 | 21.8M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享">1月18日最新机场订阅 | 21.8M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-44906.htm" title="动物防疫站***多少钱一次 动物防疫站***多少钱一次啊">动物防疫站***多少钱一次 动物防疫站***多少钱一次啊</a></li>
+                        <li class="py-2"><a href="/news/article-46889.htm" title="小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢">小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢</a></li>
+                        <li class="py-2"><a href="/news/article-44414.htm" title="动物疫苗注射器 动物疫苗注射器视频">动物疫苗注射器 动物疫苗注射器视频</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">54</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
