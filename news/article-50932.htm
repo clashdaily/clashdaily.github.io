@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-50932.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>openstack命令创建云主机实例_在线工具Live2D</title>
+        <meta name="description" content="@  目录  前言 上传centos镜像 创建实例 创建外网卡 修改安全组规则 创建云主机实例   前言 简单创建云主机实例只需要上传一个测试镜像、创建一张外网卡、创建一个实例类型、修改安全组规则即可" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-50932.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="openstack命令创建云主机实例_在线工具Live2D" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/0c91ff482f2565f4d382f5bd7f44d839.webp" />
+        <meta property="og:release_date" content="2025-02-04T00:27:30" />
+    <meta property="og:updated_time" content="2025-02-04T00:27:30" />
+        <meta property="og:description" content="@  目录  前言 上传centos镜像 创建实例 创建外网卡 修改安全组规则 创建云主机实例   前言 简单创建云主机实例只需要上传一个测试镜像、创建一张外网卡、创建一个实例类型、修改安全组规则即可" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="openstack命令创建云主机实例_在线工具Live2D">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="#">关于</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">联系</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                openstack命令创建云主机实例_在线工具Live2D                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<p>@</p> <div class="toc"> <div class="toc-container-header">目录</div> <ul> <li><a href="#%E5%89%8D%E8%A8%80"  rel="nofollow">前言</a></li> <li><a href="#%E4%B8%8A%E4%BC%A0centos%E9%95%9C%E5%83%8F"  rel="nofollow">上传centos镜像</a></li> <li><a href="#%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BE%8B"  rel="nofollow">创建实例</a></li> <li><a href="#%E5%88%9B%E5%BB%BA%E5%A4%96%E7%BD%91%E5%8D%A1"  rel="nofollow">创建外网卡</a></li> <li><a href="#%E4%BF%AE%E6%94%B9%E5%AE%89%E5%85%A8%E7%BB%84%E8%A7%84%E5%88%99"  rel="nofollow">修改安全组规则</a></li> <li><a href="#%E5%88%9B%E5%BB%BA%E4%BA%91%E4%B8%BB%E6%9C%BA%E5%AE%9E%E4%BE%8B"  rel="nofollow">创建云主机实例</a></li> </ul> </div> <h2 id="前言">前言</h2> <p>简单创建云主机实例只需要上传一个测试镜像、创建一张外网卡、创建一个实例类型、修改安全组规则即可<br /> 注：这里的两条命令是为了解决 虚拟机 环境下的 QEMU模拟器错误 导致云主机无法使用的问题，旧版本先电v2.2不存在此问题，真实服务器请忽略。</p> <pre><code class="language-powershell">## 更改配置文件并重启 nova-compute 服务 [root@compute ~]# crudini --set /etc/nova/nova.conf libvirt virt_type  qemu [root@compute ~]# systemctl restart openstack-nova-compute </code></pre> <h2 id="上传centos镜像">上传centos镜像</h2> <p>上传一个centos镜像，还可以设置最小启动磁盘与内存等，可以<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/hoyeong/p/16211055.html"  target="_blank"  rel="nofollow">参考文档</a></p> <blockquote> <p>ages]# openstack image create --disk-format qcow2 --container-format bare --file ./CentOS_7.2_x86_64_XD.qcow2 centos</p> </blockquote> <pre><code class="language-powershell">[root@controller images]# openstack image create --disk-format qcow2 --container-format bare --file ./CentOS_7.2_x86_64_XD.qcow2 centos +------------------+------------------------------------------------------+ | Field            | Value                                                | +------------------+------------------------------------------------------+ | checksum         | ea197f4c679b8e1ce34c0aa70ae2a94a                     | | container_format | bare                                                 | | created_at       | 2022-04-30T20:53:21Z                                 | | disk_format      | qcow2                                                | | file             | /v2/images/2be3f0d5-2090-490c-8b91-84d96912e7c6/file | | id               | 2be3f0d5-2090-490c-8b91-84d96912e7c6                 | | min_disk         | 0                                                    | | min_ram          | 0                                                    | | name             | centos                                               | | owner            | 0635fff1ca6c42ab983e8a05d533eda3                     | | protected        | False                                                | | schema           | /v2/schemas/image                                    | | size             | 400752640                                            | | status           | active                                               | | tags             |                                                      | | updated_at       | 2022-04-30T20:53:23Z                                 | | virtual_size     | None                                                 | | visibility       | shared                                               | +------------------+------------------------------------------------------+ </code></pre> <h2 id="创建实例">创建实例</h2> <p>创建一个名为test0的实例</p> <blockquote> <p>openstack flavor create --disk 10 --ram 1024 --vcpu 2 --id 99999 test0</p> </blockquote> <pre><code class="language-powershell">[root@controller ~]# openstack flavor create --disk 10 --ram 1024 --vcpu 2 --id 99999 test0 +----------------------------+-------+ | Field                      | Value | +----------------------------+-------+ | OS-FLV-DISABLED:disabled   | False | | OS-FLV-EXT-DATA:ephemeral  | 0     | | disk                       | 10    | | id                         | 99999 | | name                       | test0 | | os-flavor-access:is_public | True  | | properties                 |       | | ram                        | 1024  | | rxtx_factor                | 1.0   | | swap                       |       | | vcpus                      | 2     | +----------------------------+-------+ </code></pre> <h2 id="创建外网卡">创建外网卡</h2> <p>注：若使用 虚拟机 搭建，外部网络类型请选择Flat；若使用 服务器 搭建，外部网络类型请选择VLAN；注意不要重复执行命令，二选一执行。</p> <blockquote> <p>openstack network create --provider-network-type vlan --provider-physical-network provider network-vlan --provider-segment 200</p> </blockquote> <pre><code class="language-powershell">[root@controller ~]# openstack network create --provider-network-type vlan --provider-physical-network provider ext-net --provider-segment 200 +---------------------------+-----------------------------------------------------------+ | Field                     | Value                                                     | +---------------------------+-----------------------------------------------------------+ | admin_state_up            | UP                                                        | | availability_zone_hints   |                                                           | | availability_zones        |                                                           | | created_at                | 2022-04-10T05:02:18Z                                      | | description               |                                                           | | dns_domain                | None                                                      | | id                        | cccedc78-027d-40e9-afbd-708154923ca6                      | | ipv4_address_scope        | None                                                      | | ipv6_address_scope        | None                                                      | | is_default                | False                                                     | | is_vlan_transparent       | None                                                      | | location                  | cloud='', project.domain_id=, project.domain_name='000000',  project.id='1776912d52a7444d8b2d09eb86e8d1d9', project.name='admin', region_name='',  zone=                                                                                  | | mtu                       | 1500                                                      | | name                      | ext-net                                              | | port_security_enabled     | True                                                      | | project_id                | 1776912d52a7444d8b2d09eb86e8d1d9                          | | provider:network_type     | vlan                                                      | | provider:physical_network | provider                                                  | | provider:segmentation_id  | 200                                                       | | qos_policy_id             | None                                                      | | revision_number           | 1                                                         | | router:external           | Internal                                                  | | segments                  | None                                                      | | shared                    | False                                                     | | status                    | ACTIVE                                                    | | subnets                   |                                                           | | tags                      |                                                           | | updated_at                | 2022-04-10T05:02:18Z                                      | +---------------------------+-----------------------------------------------------------+ </code></pre> <p>创建子网</p> <blockquote> <p>openstack subnet create  --network ext-net  --allocation-pool start=10.60.3.10,end=10.60.3.200 --gateway 10.60.3.1 --subnet-range 10.60.3.0/24  ext-subnet</p> </blockquote> <pre><code class="language-powershell">[root@controller ~]# openstack subnet list [root@controller ~]# openstack subnet create  --network ext-net  --allocation-pool start=10.60.3.10,end=10.60.3.200 --gateway 10.60.3.1 --subnet-range 10.60.3.0/24  ext-subnet +-------------------+------------------------------------------------------------------+ | Field             | Value                                                            | +-------------------+------------------------------------------------------------------+ | allocation_pools  | 10.60.3.10-10.60.3.200                                  | | cidr              | 10.60.3.0/24                                                 | | created_at        | 2022-04-10T05:03:52Z                                             | | description       |                                                                  | | dns_nameservers   |                                                                  | | enable_dhcp       | True                                                             | | gateway_ip        | 10.60.3.1                                                    | | host_routes       |                                                                  | | id                | 69c14fff-de95-440a-bc8e-fe9f43e4b424                             | | ip_version        | 4                                                                | | ipv6_address_mode | None                                                             | | ipv6_ra_mode      | None                                                             | | location          | cloud='', project.domain_id=, project.domain_name='000000',  project.id='1776912d52a7444d8b2d09eb86e8d1d9', project.name='admin', region_name='',  zone=                                                                                 | | name              | ext-subnet                                                      | | network_id        | cccedc78-027d-40e9-afbd-708154923ca6                             | | prefix_length     | None                                                             | | project_id        | 1776912d52a7444d8b2d09eb86e8d1d9                                 | | revision_number   | 0                                                                | | segment_id        | None                                                             | | service_types     |                                                                  | | subnetpool_id     | None                                                             | | tags              |                                                                  | | updated_at        | 2022-04-10T05:03:52Z                                             | +-------------------+------------------------------------------------------------------+ </code></pre> <h2 id="修改安全组规则">修改安全组规则</h2> <p>添加所有的udp、icmp、tcp的出入口<br /> 查看安全组id</p> <blockquote> <p>openstack security group list</p> </blockquote> <pre><code class="language-powershell">[root@controller ~]# openstack security group list +--------------------------------------+---------+------------------------+----------------------------------+ | ID                                   | Name    | Description            | Project                          | +--------------------------------------+---------+------------------------+----------------------------------+ |                                  | | 712025d7-6aa6-40e4-9104-4df6706b6697 | default | Default security group | 0635fff1ca6c42ab983e8a05d533eda3 | | +--------------------------------------+---------+------------------------+----------------------------------+ </code></pre> <p>添加所有ifmp规则入口</p> <blockquote> <p>openstack security group rule create --protocol icmp --ingress 712025d7-6aa6-40e4-9104-4df6706b6697</p> </blockquote> <pre><code class="language-powershell">[root@controller ~]# openstack security group rule create --protocol icmp --ingress 712025d7-6aa6-40e4-9104-4df6706b6697 +-------------------+--------------------------------------+ | Field             | Value                                | +-------------------+--------------------------------------+ | created_at        | 2022-04-30T21:22:54Z                 | | description       |                                      | | direction         | ingress                              | | ether_type        | IPv4                                 | | id                | 869e67e5-5571-4c03-a21c-715e3dd51a5c | | name              | None                                 | | port_range_max    | None                                 | | port_range_min    | None                                 | | project_id        | 0635fff1ca6c42ab983e8a05d533eda3     | | protocol          | icmp                                 | | remote_group_id   | None                                 | | remote_ip_prefix  | 0.0.0.0/0                            | | revision_number   | 0                                    | | security_group_id | 712025d7-6aa6-40e4-9104-4df6706b6697 | | updated_at        | 2022-04-30T21:22:54Z                 | +-------------------+--------------------------------------+ </code></pre> <p>添加所有icmp规则出口</p> <blockquote> <p>openstack security group rule create --protocol icmp --egress 712025d7-6aa6-40e4-9104-4df6706b6697</p> </blockquote> <pre><code class="language-powershell">[root@controller ~]# openstack security group rule create --protocol icmp --egress 712025d7-6aa6-40e4-9104-4df6706b6697 +-------------------+--------------------------------------+ | Field             | Value                                | +-------------------+--------------------------------------+ | created_at        | 2022-04-30T21:27:42Z                 | | description       |                                      | | direction         | egress                               | | ether_type        | IPv4                                 | | id                | ede63376-0eeb-4a6b-9dd9-f3a63418c85b | | name              | None                                 | | port_range_max    | None                                 | | port_range_min    | None                                 | | project_id        | 0635fff1ca6c42ab983e8a05d533eda3     | | protocol          | icmp                                 | | remote_group_id   | None                                 | | remote_ip_prefix  | 0.0.0.0/0                            | | revision_number   | 0                                    | | security_group_id | 712025d7-6aa6-40e4-9104-4df6706b6697 | | updated_at        | 2022-04-30T21:27:42Z                 | +-------------------+--------------------------------------+ </code></pre> <p>添加所有udp规则入口</p> <blockquote> <p>openstack security group rule create --protocol udp --ingress 712025d7-6aa6-40e4-9104-4df6706b6697</p> </blockquote> <p>添加所有udp规则出口</p> <blockquote> <p>openstack security group rule create --protocol udp --egress 712025d7-6aa6-40e4-9104-4df6706b6697</p> </blockquote> <p>添加所有tcp规则入口</p> <blockquote> <p>openstack security group rule create --protocol tcp --ingress 712025d7-6aa6-40e4-9104-4df6706b6697</p> </blockquote> <p>添加所有tcp规则出口</p> <blockquote> <p>openstack security group rule create --protocol tcp --egress 712025d7-6aa6-40e4-9104-4df6706b6697</p> </blockquote> <p>查看安全组规则</p> <blockquote> <p>openstack security group rule list 712025d7-6aa6-40e4-9104-4df6706b6697</p> </blockquote> <pre><code class="language-powershell">[root@controller ~]# openstack security group rule list 712025d7-6aa6-40e4-9104-4df6706b6697 +--------------------------------------+-------------+-----------+------------+-----------------------+ | ID                                   | IP Protocol | IP Range  | Port Range | Remote Security Group | +--------------------------------------+-------------+-----------+------------+-----------------------+ | 869e67e5-5571-4c03-a21c-715e3dd51a5c | icmp        | 0.0.0.0/0 |            | None                  | | 8a91bc8e-c9cd-4bf1-86ae-0c6d9eef67e7 | udp         | 0.0.0.0/0 |            | None                  | | b525b93f-ffb6-4b84-be99-fdfd6f0fad75 | tcp         | 0.0.0.0/0 |            | None                  | | dfea0691-0903-4cdf-b775-297eb6858f0d | udp         | 0.0.0.0/0 |            | None                  | | ede63376-0eeb-4a6b-9dd9-f3a63418c85b | icmp        | 0.0.0.0/0 |            | None                  | | f9371589-1b17-4e5b-9f8d-798055cdc662 | tcp         | 0.0.0.0/0 |            | None                  | +--------------------------------------+-------------+-----------+------------+-----------------------+ </code></pre> <h2 id="创建云主机实例">创建云主机实例</h2> <blockquote> <p>openstack server create --image centos --flavor test0 --network ext-net --security-group 712025d7-6aa6-40e4-9104-4df6706b6697 test</p> </blockquote> <pre><code class="language-powershell">[root@controller ~]# openstack server create --image centos --flavor test0 --network ext-net --security-group 712025d7-6aa6-40e4-9104-4df6706b6697 test +-------------------------------------+-----------------------------------------------+ | Field                               | Value                                         | +-------------------------------------+-----------------------------------------------+ | OS-DCF:diskConfig                   | MANUAL                                        | | OS-EXT-AZ:availability_zone         |                                               | | OS-EXT-SRV-ATTR:host                | None                                          | | OS-EXT-SRV-ATTR:hypervisor_hostname | None                                          | | OS-EXT-SRV-ATTR:instance_name       |                                               | | OS-EXT-STS:power_state              | NOSTATE                                       | | OS-EXT-STS:task_state               | scheduling                                    | | OS-EXT-STS:vm_state                 | building                                      | | OS-SRV-USG:launched_at              | None                                          | | OS-SRV-USG:terminated_at            | None                                          | | accessIPv4                          |                                               | | accessIPv6                          |                                               | | addresses                           |                                               | | adminPass                           | QPNdhd27eT9S                                  | | config_drive                        |                                               | | created                             | 2022-04-30T21:38:08Z                          | | flavor                              | test0 (99999)                                 | | hostId                              |                                               | | id                                  | 3a8870c8-411a-4674-b075-568dbf7f2bb1          | | image                               | centos (cc01ec45-6683-4fe1-ab4b-d38ca295d3d0) | | key_name                            | None                                          | | name                                | test                                          | | progress                            | 0                                             | | project_id                          | 0635fff1ca6c42ab983e8a05d533eda3              | | properties                          |                                               | | security_groups                     | name='712025d7-6aa6-40e4-9104-4df6706b6697'   | | status                              | BUILD                                         | | updated                             | 2022-04-30T21:38:08Z                          | | user_id                             | 71b51689f3e94be4927ed7d96ef6925b              | | volumes_attached                    |                                               | +-------------------------------------+-----------------------------------------------+ </code></pre> <p>查看并测试</p> <pre><code class="language-powershell">[root@controller ~]# openstack server list +--------------------------------------+------------+--------+--------------------------------------------+--------+--------+ | ID                                   | Name       | Status | Networks                                   | Image  | Flavor | +--------------------------------------+------------+--------+--------------------------------------------+--------+--------+ | 7ae48fd3-7ec7-4011-af07-1d75bc9578a4 | test       | ACTIVE | ext-net=10.60.3.11                         | centos | test10  |   +--------------------------------------+------------+--------+--------------------------------------------+--------+--------+ [root@controller ~]# ping 10.60.3.11 PING 10.60.3.11 (10.60.3.11) 56(84) bytes of data. 64 bytes from 10.60.3.11: icmp_seq=1 ttl=63 time=0.256 ms 64 bytes from 10.60.3.11: icmp_seq=2 ttl=63 time=0.279 ms 64 bytes from 10.60.3.11: icmp_seq=3 ttl=63 time=0.253 ms 64 bytes from 10.60.3.11: icmp_seq=4 ttl=63 time=0.242 ms 64 bytes from 10.60.3.11: icmp_seq=5 ttl=63 time=0.223 ms </code></pre> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-50404.htm">动物疫苗是什么颜色（动物疫苗是什么颜色的图片）</a></p>
+                                        <p>下一个：<a href="/news/article-50933.htm">打疫苗的时候能不能吃（打疫苗的时候能不能吃感冒药）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-49376.htm" title="厦门宠物狗领养中心电话地址（厦门宠物狗领养中心电话地址是多少）">厦门宠物狗领养中心电话地址（厦门宠物狗领养中心电话地址是多少）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-14-node-share.htm" title="1月14日最新机场订阅 | 22.5M/S|2025年SSR/V2ray/Shadowrocket/Clash免费节点地址链接分享">1月14日最新机场订阅 | 22.5M/S|2025年SSR/V2ray/Shadowrocket/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-39447.htm" title="Centos7服务器上RabbitMQ单机安装_在线工具">Centos7服务器上RabbitMQ单机安装_在线工具</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-22-free-clash-subscribe.htm" title="1月22日最新机场订阅 | 20.9M/S|2025年Clash/Shadowrocket/V2ray/SSR免费节点地址链接分享">1月22日最新机场订阅 | 20.9M/S|2025年Clash/Shadowrocket/V2ray/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-43430.htm" title="小动物打预防针 小动物打预防针的故事">小动物打预防针 小动物打预防针的故事</a></li>
+                        <li class="py-2"><a href="/news/article-46889.htm" title="小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢">小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-3-free-ssr-node.htm" title="2月3日最新机场订阅 | 18.4M/S|2025年Clash/V2ray/SSR/Shadowrocket免费节点地址链接分享">2月3日最新机场订阅 | 18.4M/S|2025年Clash/V2ray/SSR/Shadowrocket免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-21-clash-v2ray-ss-ssr.htm" title="1月21日最新机场订阅 | 21.5M/S|2025年Shadowrocket/Clash/V2ray/SSR免费节点地址链接分享">1月21日最新机场订阅 | 21.5M/S|2025年Shadowrocket/Clash/V2ray/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-5-clash-node-github.htm" title="2月5日最新机场订阅 | 18.1M/S|2025年SSR/V2ray/Shadowrocket/Clash免费节点地址链接分享">2月5日最新机场订阅 | 18.1M/S|2025年SSR/V2ray/Shadowrocket/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-25-free-node-subscribe.htm" title="1月25日最新机场订阅 | 18.3M/S|2025年Clash/SSR/V2ray/Shadowrocket免费节点地址链接分享">1月25日最新机场订阅 | 18.3M/S|2025年Clash/SSR/V2ray/Shadowrocket免费节点地址链接分享</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">18</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
