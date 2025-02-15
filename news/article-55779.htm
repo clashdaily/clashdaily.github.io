@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-55779.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>VUE3setup响应式函数系统API详解</title>
+        <meta name="description" content="Vue3.0提供的一组具有响应式特性的杉树式API，以函数的形式提供 1、reactive reactive（）函数接收一个普通对象，返回该普通对象的响应式代理对象 2、ref ref（）函数接收一个" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-55779.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="VUE3setup响应式函数系统API详解" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/cfa142bb98cfd46a8b4c573c38780a19.webp" />
+        <meta property="og:release_date" content="2025-02-13T03:09:25" />
+    <meta property="og:updated_time" content="2025-02-13T03:09:25" />
+        <meta property="og:description" content="Vue3.0提供的一组具有响应式特性的杉树式API，以函数的形式提供 1、reactive reactive（）函数接收一个普通对象，返回该普通对象的响应式代理对象 2、ref ref（）函数接收一个" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="VUE3setup响应式函数系统API详解">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                VUE3setup响应式函数系统API详解                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <blockquote> <p>Vue3.0提供的一组具有响应式特性的杉树式API，以函数的形式提供<br /> 1、reactive<br /> reactive（）函数接收一个普通对象，返回该普通对象的响应式代理对象<br /> 2、ref<br /> ref（）函数接收一个参数值，返回一个响应式的数据对象。该对象只包含一个指向内部值的.value属性<br /> 3、computed<br /> computed（）函数用来创建计算属性，函数的返回值是一个ref的实例<br /> 4、readonly</p> <p>readonly（）函数接收一个对象（普通或者响应式），返回一个原始对象只读代理对象<br /> 5、watch<br /> watch（）函数用来监听数据的变化，从而出发特定的操作<br /> 6、watchEffect<br /> watchEffect（）函数接收一个函数作为参数，并立即执行该函数，同时响应式追踪其依赖，并在其依赖变更时，重新运行该函数。</p> </blockquote> <p>&nbsp;reactive.vue</p> <pre><code>&lt;template&gt; 	&lt;div&gt; 		&lt;p&gt;{<!-- -->{name}}&lt;/p&gt; 		&lt;button @click="name='juju'"&gt;修改name&lt;/button&gt; 	&lt;/div&gt; &lt;/template&gt;  &lt;script&gt; 	//1、导入reactive响应函数 	import { reactive } from 'vue' 	export default{ 		setup(){ 			//2、创建响应式对象，是一个代理对象 			const data=reactive({ 				name:'htt', 				age:22 			}) 			 			return data 		} 	} &lt;/script&gt;  &lt;style&gt; &lt;/style&gt;</code></pre> <p>ref.vue</p> <pre><code>&lt;template&gt; 	&lt;div&gt; 		&lt;!-- 在模板中访问时，无需通过value属性,它会自动展开 --&gt; 		&lt;p&gt;{<!-- -->{ num }}&lt;/p&gt; 		&lt;button @click="change"&gt;修改count&lt;/button&gt; 	&lt;/div&gt; &lt;/template&gt;  &lt;script&gt; 	//导入ref函数 	import {ref} from 'vue' 	export default{ 		setup(){ 			//创建响应对象 			const num=ref(1) 			console.log(num.value) 			 			const change=()=&gt;{ 				num.value=5 			} 			//setup导出数据都要return，可以是函数，也可以是数据 			return { 				num, 				change 			} 		}, 		//以后经常使用的就是setup，不是data 		data(){ 			return{ 				 			} 		} 		 	} &lt;/script&gt;  &lt;style&gt; &lt;/style&gt;</code></pre> <p>computed.vue</p> <pre><code>&lt;template&gt; 	&lt;div&gt; 		&lt;p&gt;{<!-- -->{hg}}&lt;/p&gt; 		&lt;p&gt;{<!-- -->{ss}}&lt;/p&gt; 	&lt;/div&gt; &lt;/template&gt;  &lt;script&gt; 	import {computed,ref} from 'vue' 	export default{ 		setup(){ 			const hg=ref(1) 			 			//创建一个只读的计算属性 			const ss=computed(()=&gt;{ 				return hg.value+1 			}) 			 			//创建一个可读可写的计算属性 			const pk=computed({ 				get(){ 					return hg.value+1 				}, 				set(hg){ 					hg.value=hg 				} 			}) 			return { 				hg, 				ss, 				pk 			} 		} 	} &lt;/script&gt;  &lt;style&gt; &lt;/style&gt;</code></pre> <p>readonly.vue</p> <pre><code>&lt;template&gt; 	&lt;div&gt;&lt;/div&gt; &lt;/template&gt;  &lt;script&gt; 	import {reactive,readonly} from 'vue' 	export default{ 		setup(){ 			const obj =reactive({conunt:1}) 			 			//代理了响应式对象 			const proxy=readonly(obj) 			 			console.log(obj) 			console.log(proxy) 			//代理只读对象是不允许修改的 			//修改原始对象时代理对象也会响应式变化 		} 	} &lt;/script&gt;  &lt;style&gt; &lt;/style&gt;</code></pre> <p>watch.vue和watchEffect.vue</p> <pre><code>&lt;template&gt; 	&lt;div&gt; 		&lt;!-- 点击之后就停止监视 --&gt; 		&lt;button @click="unwatch"&gt;停止监视&lt;/button&gt; 	&lt;/div&gt; &lt;/template&gt;  &lt;script&gt; 	import {watch,reactive} from 'vue' 	export default{ 		setup(){ 			const state=reactive({count:1}) 			 			 		//监视数据的变化,会返回一个用于取消监视的函数 		//当数据发生改变擦会启动监视，不会立即启动监视 		// const unwatch=watch(() =&gt; 		// 	state.count,(oldValue,newValue)=&gt;{ 		// 	console.log(oldValue,newValue) 		// }) 		//先立即执行传入的函数 		//当函数内依赖的数据发生变化时会再次执行函数 		watchEffect(()=&gt;{ 			console.log(state.count) 		}) 		 		return { 			state, 			unwatch 		} 			 	} &lt;/script&gt;  &lt;style&gt; &lt;/style&gt;</code></pre> <p>App.vue</p> <pre><code> &lt;template&gt; 	&lt;!-- &lt;comp-setup msg="welcome"&gt; 		 	&lt;/comp-setup&gt; --&gt; 	&lt;comp-reactive&gt;&lt;/comp-reactive&gt; 	&lt;comp-ref&gt;&lt;/comp-ref&gt; 	&lt;comp-computed&gt;&lt;/comp-computed&gt; 	&lt;comp-reonly&gt;&lt;/comp-reonly&gt; 	&lt;comp-watch&gt;&lt;/comp-watch&gt; &lt;/template&gt;  &lt;script&gt; /*eslint no-mixed-spaces-and-tabs: ["error", "smart-tabs"]*/ // import CompSetup from './components/setupview' import CompReactive from './components/reactive.vue' import CompRef from './components/ref.vue' import CompComputed from './components/compud.vue' import CompReonly from './components/reonly.vue' import CompWatch from './components/watch.vue' export default {   name: 'App',   components: { 	  // CompSetup, 	  CompReactive, 	  CompRef, 	  CompComputed, 	  CompReonly, 	  CompWatch,   } } &lt;/script&gt;  &lt;style&gt;  &lt;/style&gt;</code></pre> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-55778.htm">Group velocity and phase velocity(群速度与相速度)</a></p>
+                                        <p>下一个：<a href="/news/article-56326.htm">宠物粮加工厂和帐篷加工厂哪个赚钱快（宠物粮食加工厂挣钱吗）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-38956.htm" title="宠物粮食市场份额预测分析 宠物粮食市场份额预测分析报告">宠物粮食市场份额预测分析 宠物粮食市场份额预测分析报告</a></li>
+                        <li class="py-2"><a href="/news/article-42922.htm" title="打狂犬疫苗多少钱医保卡可以报销吗（被猫咬了怎么判断没事）">打狂犬疫苗多少钱医保卡可以报销吗（被猫咬了怎么判断没事）</a></li>
+                        <li class="py-2"><a href="/news/article-53572.htm" title="合肥宠物寄养中心 合肥宠物寄养中心地址">合肥宠物寄养中心 合肥宠物寄养中心地址</a></li>
+                        <li class="py-2"><a href="/news/article-41417.htm" title="领养回访多久可以结束 领养回访多久可以结束呢">领养回访多久可以结束 领养回访多久可以结束呢</a></li>
+                        <li class="py-2"><a href="/news/article-39448.htm" title="免费宠物领养网（免费宠物领养网）">免费宠物领养网（免费宠物领养网）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-26-free-clash.htm" title="1月26日最新机场订阅 | 21.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">1月26日最新机场订阅 | 21.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-42421.htm" title="狗狗疫苗自己能不能打（狗疫苗可以自己打吗?）">狗狗疫苗自己能不能打（狗疫苗可以自己打吗?）</a></li>
+                        <li class="py-2"><a href="/news/article-46889.htm" title="小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢">小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢</a></li>
+                        <li class="py-2"><a href="/news/article-46888.htm" title="Azure DevOps 中 Dapr项目自动部署流程实践">Azure DevOps 中 Dapr项目自动部署流程实践</a></li>
+                        <li class="py-2"><a href="/news/article-47369.htm" title="宠物店的猫粮（宠物店的猫粮好吗）">宠物店的猫粮（宠物店的猫粮好吗）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">45</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
