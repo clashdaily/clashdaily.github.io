@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-59742.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>杨氏矩阵详解</title>
+        <meta name="description" content="题目名称： 杨氏矩阵 题目内容： 有一个数字矩阵，矩阵的每行从左到右是递增的，矩阵从上到下是递增的，请编写程序在这样的矩阵中查找某个数字是否存在。 要求：时间复杂度小于O(N);  &nbsp; 思路" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-59742.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="杨氏矩阵详解" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/be9c2904a6ca2ec8f2b6bbed22f50ca4.webp" />
+        <meta property="og:release_date" content="2025-02-20T09:55:51" />
+    <meta property="og:updated_time" content="2025-02-20T09:55:51" />
+        <meta property="og:description" content="题目名称： 杨氏矩阵 题目内容： 有一个数字矩阵，矩阵的每行从左到右是递增的，矩阵从上到下是递增的，请编写程序在这样的矩阵中查找某个数字是否存在。 要求：时间复杂度小于O(N);  &nbsp; 思路" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="杨氏矩阵详解">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                杨氏矩阵详解                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <blockquote> <p>题目名称：</p> <p>杨氏矩阵</p> <p>题目内容：</p> <p>有一个数字矩阵，矩阵的每行从左到右是递增的，矩阵从上到下是递增的，请编写程序在这样的矩阵中查找某个数字是否存在。</p> <p>要求：时间复杂度小于O(N);</p> </blockquote> <p>&nbsp;</p> <p>思路一： 数组行列递增，是有规律的，所以可以遍历数组寻找数字，但是这题有时间复杂度的要求，遍历数组时间复杂度是O(N*2)，不满足题意。</p> <p>思路二： 如图所示，矩阵右上角的数字5是它这一行里最大的，是它这一列里的最小的。</p> <p>矩阵左下角的数字21是它这一行里最小的，是它这一列里的最大的。</p> <p><img fetchpriority="high" decoding="async" alt="" height="200" src="http://img.555519.xyz/uploads/20230202/3b0665dbf8639522fcc920e9af7a2169.jpg"></p> <p>&nbsp;借助这个结论，可以发现，比如要找数字7，它比右上角的数字5大，所以可以排除第一行；比如要找数字23，它比左下角的21大，所以可以排除第一列。</p> <p>代码如下：</p> <pre><code class="language-cpp">int search(int arr[3][3], int r, int c, int k) { 	int x = 0; 	int y = c - 1; 	while (x &lt; r &amp;&amp; c &gt;= 0) 	{ 		if (k &gt; arr[x][y]) 			x++; 		else if (k &lt; arr[x][y]) 			y--; 		else 			return 1; 	} 	return 0; } int main() { 	int arr[3][3] = {1,2,3,4,5,6,7,8,9}; 	int k = 0; 	scanf("%d", &amp;k); 	int ret = search(arr,3,3, k); 	if (ret == 1) 		printf("YES\n"); 	else 		printf("NO\n"); 	return 0; }</code></pre> <p>&nbsp;</p> <p>&nbsp;</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-59170.htm">北农动物医院大众点评官网（北农动物医院大众点评官网电话）</a></p>
+                                        <p>下一个：<a href="/news/article-59743.htm">c级宠物美容师证书（c级宠物美容师证书图片）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-42922.htm" title="打狂犬疫苗多少钱医保卡可以报销吗（被猫咬了怎么判断没事）">打狂犬疫苗多少钱医保卡可以报销吗（被猫咬了怎么判断没事）</a></li>
+                        <li class="py-2"><a href="/news/article-51980.htm" title="JavaScript将数字转换为数十，数百，数千等方法详解">JavaScript将数字转换为数十，数百，数千等方法详解</a></li>
+                        <li class="py-2"><a href="/news/article-56327.htm" title="没经验的新手开宠物店怎么样呢（没经验的新手开宠物店怎么样呢视频）">没经验的新手开宠物店怎么样呢（没经验的新手开宠物店怎么样呢视频）</a></li>
+                        <li class="py-2"><a href="/news/article-53571.htm" title="兰州的狗市在什么地方（兰州那里有狗市）">兰州的狗市在什么地方（兰州那里有狗市）</a></li>
+                        <li class="py-2"><a href="/news/article-45907.htm" title="小型宠物粮食加工设备有哪些品牌 小型宠物粮食加工设备有哪些品牌好">小型宠物粮食加工设备有哪些品牌 小型宠物粮食加工设备有哪些品牌好</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-21-clash-v2ray-ss-ssr.htm" title="1月21日最新机场订阅 | 21.5M/S|2025年Shadowrocket/Clash/V2ray/SSR免费节点地址链接分享">1月21日最新机场订阅 | 21.5M/S|2025年Shadowrocket/Clash/V2ray/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-44905.htm" title="动物诊所起名（动物诊所属于什么行业）">动物诊所起名（动物诊所属于什么行业）</a></li>
+                        <li class="py-2"><a href="/news/article-47368.htm" title="Vue3.Router路由的使用">Vue3.Router路由的使用</a></li>
+                        <li class="py-2"><a href="/news/article-40434.htm" title="宠物美容师待遇如何（宠物美容师工资待遇）">宠物美容师待遇如何（宠物美容师工资待遇）</a></li>
+                        <li class="py-2"><a href="/news/article-47851.htm" title="dellbios检测不到固态硬盘（dell识别不了固态硬盘）">dellbios检测不到固态硬盘（dell识别不了固态硬盘）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">63</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
