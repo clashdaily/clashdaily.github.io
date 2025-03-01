@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-64508.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>记一次MySql重置root密码无效</title>
+        <meta name="description" content="说起这个事情吧也相对来说比较尴尬，对于一个技术来说忘记密码然后找回密码都是相当简单的一个事情，但是在生产环境中没有保存记录只能是自己的失职，尴尬就尴尬在明明重置成功了却没有生效，弄得好几个工程师在哪里" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-64508.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="记一次MySql重置root密码无效" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/0c91ff482f2565f4d382f5bd7f44d839.webp" />
+        <meta property="og:release_date" content="2025-02-28T06:56:14" />
+    <meta property="og:updated_time" content="2025-02-28T06:56:14" />
+        <meta property="og:description" content="说起这个事情吧也相对来说比较尴尬，对于一个技术来说忘记密码然后找回密码都是相当简单的一个事情，但是在生产环境中没有保存记录只能是自己的失职，尴尬就尴尬在明明重置成功了却没有生效，弄得好几个工程师在哪里" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="记一次MySql重置root密码无效">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                记一次MySql重置root密码无效                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<p>说起这个事情吧也相对来说比较尴尬，对于一个技术来说忘记密码然后找回密码都是相当简单的一个事情，但是在生产环境中没有保存记录只能是自己的失职，尴尬就尴尬在明明重置成功了却没有生效，弄得好几个工程师在哪里挠头！！！也是经过不断得摸索测试方案最后也是解决了这个问题，下面就简单跟大家分享一下：</p> </h1> <p>这个场景比较简单，因为我们是测试环境嘛，所以也就只有一台MySql数据库，只需要对这个数据库进行密码修改就可以了，而且也不用担心搞坏得问题，再一个最最最最重要得就是它可以随时进行重启，不需要考虑业务情况，当然在生产环境大家一定要考虑时间空档期，不然数据丢失就很麻烦了，而且操作的又是数据库，就相当于在脑袋上开刀一样，废话不多说了下面是环境情况：</p> <pre><code>操作系统：windows server 2019 数据中心版本 MySql：经典安装 MySql 5.6</code></pre> <h2 id=""><img decoding="async" src="https://img-blog.csdnimg.cn/7acffaaa12e74152b007cf6491643da8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byR5aSp5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" loading="lazy"/></h2> </h1> <p>问题就是：使用--skip-grant-tables跳过权限，然后使用update修改root密码后，使用 FLUSH PRIVILEGES;刷新，使用新密码连接mysql提示密码错误，无非登录<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/a523d7fa16faef2e50c8dded76918337.jpg" alt="记一次MySql重置root密码无效"><br /> 下面是我重置密码的过程，大家也可以参考下，看看是不是有忽略的地方</p> <ol> <li>停止mysql服务<br /><img decoding="async" src="https://img-blog.csdnimg.cn/204ec01d8c3f4b69a23174f712ac0db5.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byR5aSp5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" loading="lazy"/></li> <li>使用--skip-grant-tables跳过权限启动<br /><img decoding="async" src="https://img-blog.csdnimg.cn/b363824a4b5a4c9bbaadc738eec61c09.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byR5aSp5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" loading="lazy"/></li> <li>登录并修改密码<br /><img decoding="async" src="https://img-blog.csdnimg.cn/8ca19f4f9b034531b89c9cbe755fce1f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byR5aSp5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" loading="lazy"/><br /><img decoding="async" src="https://img-blog.csdnimg.cn/0787ea6145854742879e3131cd28bc70.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byR5aSp5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" loading="lazy"/></li> <li>关闭mysql进程及命令行窗口，重新启动mysql服务，尝试登陆<br /><img decoding="async" src="https://img-blog.csdnimg.cn/0f6f437d19bd4fab8ea3aded5d8a9f5e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byR5aSp5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" loading="lazy"/><br /> 尝试登陆<br /><img decoding="async" src="https://img-blog.csdnimg.cn/84da4e613cde458c802c9b233d81dc7a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byR5aSp5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" loading="lazy"/><br /> 明明密码修改成功了，密码也输入成功了，结果却在登陆的时候无发登陆成功</li> </ol> <hr/> </h1> <p>经我们几个人的不断测试，不断尝试，最终发现由于--skip-grant-tables这个参数造成的，其实说白了这个就是启动时生效了但是没有指定mysql的配置文件，所以这个模式下的所有操作都是无效的，设置成功了也不会修改真正的数据库文件的，也就是你把这个进程关掉了，他自己也就把数据还原回之前的了，这个跟mysql的安装方式也有关的，采用mysql免安装版本用以上操作就可以生效，但是按照版本就无法生效的，我已经尝试多个版本都是这样。<br /> 也可能不是这个原因，有异议的小伙伴欢迎大家留言一起探讨哦<br /> 下面是需要修改的跳过权限启动的命令</p> <pre><code class="language-bash">mysqld.exe --defaults-file="my.ini路径" --skip-grant-tables</code></pre> <hr/> </h1> <ol> <li>正常关闭mysql服务<br /><img decoding="async" src="https://img-blog.csdnimg.cn/04419149fc3142b2ab7874d0b8711df1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5byR5aSp5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述" loading="lazy"/></li> <li>设置跳过权限启动mysql（这里是和之前操作不一样的地方）</li> </ol> <pre><code class="language-bash">mysqld.exe --defaults-file="C:\ProgramData\MySQL\MySQL Server 5.6\my.ini" --skip-grant-tables</code></pre> <p>--defaults-file="C:\ProgramData\MySQL\MySQL Server 5.6\my.ini"  //这个直接在服务中找到mysql服务，右键属性就可以看到这个路径了<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/389c39172d0c69a444881320db14259e.jpg" alt="记一次MySql重置root密码无效"><br /> 前面是mysqld的启动程序位置，后面是指定mysql的配置文件也就是my.ini文件<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/f1ff3c1cf12bcf0c62f2b41689225095.jpg" alt="记一次MySql重置root密码无效"><br /> 启动成功<br /> 3. 修改密码<br /> 开启新命令行窗口，连接mysql<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/e09c710578817c502a6c7fd4cc20ca82.jpg" alt="记一次MySql重置root密码无效"><br /> 连接成功<br /> 修改密码<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/21824495694996b5d661fe454ab502f6.jpg" alt="记一次MySql重置root密码无效"><br /> 修改成功，退出登陆，重启mysql服务<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/160deb2884d7368e81931c9507638af7.jpg" alt="记一次MySql重置root密码无效"><br /> 4. 尝试登陆<br /> 启动成功，尝试使用新密码进行登陆<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/281de7c6ebf1af379aa5c920d1006313.jpg" alt="记一次MySql重置root密码无效"><br /> 发现已经连接成功</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-64507.htm">vue组件之间传值的几种方式</a></p>
+                                        <p>下一个：<a href="/news/article-65126.htm">修改docker容器端口映射的方法</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-43430.htm" title="小动物打预防针 小动物打预防针的故事">小动物打预防针 小动物打预防针的故事</a></li>
+                        <li class="py-2"><a href="/news/article-54669.htm" title="同城免费领养宠物狗的平台（同城领养狗狗）">同城免费领养宠物狗的平台（同城领养狗狗）</a></li>
+                        <li class="py-2"><a href="/news/article-41417.htm" title="领养回访多久可以结束 领养回访多久可以结束呢">领养回访多久可以结束 领养回访多久可以结束呢</a></li>
+                        <li class="py-2"><a href="/news/article-54121.htm" title="vue组件间的传值，父传子，子传父，兄弟之间传值，跨级传值">vue组件间的传值，父传子，子传父，兄弟之间传值，跨级传值</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-25-free-node-subscribe-links.htm" title="2月25日最新机场订阅 | 21M/S|2025年Clash/V2ray/Shadowrocket/SSR免费节点地址链接分享">2月25日最新机场订阅 | 21M/S|2025年Clash/V2ray/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-11-node-share-links.htm" title="1月11日最新机场订阅 | 18M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">1月11日最新机场订阅 | 18M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-28-free-clash.htm" title="1月28日最新机场订阅 | 20.5M/S|2025年SSR/Shadowrocket/V2ray/Clash免费节点地址链接分享">1月28日最新机场订阅 | 20.5M/S|2025年SSR/Shadowrocket/V2ray/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-56327.htm" title="没经验的新手开宠物店怎么样呢（没经验的新手开宠物店怎么样呢视频）">没经验的新手开宠物店怎么样呢（没经验的新手开宠物店怎么样呢视频）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-26-free-clash.htm" title="1月26日最新机场订阅 | 21.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">1月26日最新机场订阅 | 21.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-61487.htm" title="农大动物医院有夜间急诊吗 农大动物医院有夜间急诊吗多少钱">农大动物医院有夜间急诊吗 农大动物医院有夜间急诊吗多少钱</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
