@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-65735.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>centos7 64位下mysql5.7的安装配置卸载</title>
+        <meta name="description" content="来来回回也安装过很多次的MySQL了，去年搭建大数据平台的时候总结了方法，结果今天再次安装的时候发现以前写的方法有些不可用了，于是把今天成功安装的过程重新做了总结，步骤很详细，按照这个流程走基本上没有" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-65735.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="centos7 64位下mysql5.7的安装配置卸载" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/be9c2904a6ca2ec8f2b6bbed22f50ca4.webp" />
+        <meta property="og:release_date" content="2025-03-02T09:36:52" />
+    <meta property="og:updated_time" content="2025-03-02T09:36:52" />
+        <meta property="og:description" content="来来回回也安装过很多次的MySQL了，去年搭建大数据平台的时候总结了方法，结果今天再次安装的时候发现以前写的方法有些不可用了，于是把今天成功安装的过程重新做了总结，步骤很详细，按照这个流程走基本上没有" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="centos7 64位下mysql5.7的安装配置卸载">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                centos7 64位下mysql5.7的安装配置卸载                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>来来回回也安装过很多次的MySQL了，去年搭建大数据平台的时候总结了方法，结果今天再次安装的时候发现以前写的方法有些不可用了，于是把今天成功安装的过程重新做了总结，步骤很详细，按照这个流程走基本上没有问题的，如果哪里存在问题，欢迎大家给我指出来，我也在不断学习。</p> <p><strong>安装MySQL</strong></p> <p>（1）下载安装包：</p> <pre class="has"><code># wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</code></pre> <p>（2）安装mysql源：</p> <pre class="has"><code># yum localinstall mysql57-community-release-el7-8.noarch.rpm</code></pre> <p>检查mysql源是否安装成功</p> <pre class="has"><code># yum repolist enabled | grep "mysql.*-community.*"</code></pre> <p><img decoding="async" alt="" class="has" height="72" src="http://img.555519.xyz/uploads3/20220722/933c08ac6588496e00212c472ef78f4b.jpg"></p> <p>看到上图所示表示安装成功。</p> <p>默认安装5.7版本的，如果想要安装5.6版本的，也可以修改mysql-community.repo源，改变默认安装的mysql版本。比如要安装5.6版本，将5.7源的enabled=1改成enabled=0。然后再将5.6源的enabled=0改成enabled=1即可。</p> <pre class="has"><code># vim /etc/yum.repos.d/mysql-community.repo</code></pre> <p>改完之后的效果如下所示：</p> <p><img fetchpriority="high" decoding="async" alt="" class="has" height="359" src="http://img.555519.xyz/uploads3/20220722/d9e2d008ceb29992f235b054888603b3.jpg"></p> <p>（3）安装MySQL</p> <pre class="has"><code># yum install mysql-community-server</code></pre> <p>（4）启动MySQL服务</p> <pre class="has"><code># systemctl start mysqld</code></pre> <p>（5）查看MySQL的启动状态</p> <pre class="has"><code># systemctl status mysqld</code></pre> <p>显示active (running)就是启动成功</p> <p>也可以查看3306端口是否成功开启，开启则是启动成功：</p> <pre class="has"><code># netstat -ln | grep 3306</code></pre> <pre class="has"><code>其他命令：关闭 MySQL 服务 # systemctl stop mysqld 重启 MySQL 服务 # systemctl restart mysqld</code></pre> <p>（6）设置自启动</p> <pre class="has"><code># systemctl enable mysqld</code></pre> <p>（7）查看初始密码（为了加强安全性，MySQL从5.7开始不允许首次安装后使用空密码进行登录！为了加强安全性，系统会随机生成一个密码以供管理员首次登录使用，如果用的是 rpm 包安装，则默认在 /var/log/mysqld.log 中保存。通过下面命令获得初始密码，如图在 root@localhost: 后的即为初始密码。）（我在这里操作的时候忘记了截图，所以借用一下别人的图了）</p> <pre class="has"><code># cat /var/log/mysqld.log | grep password</code></pre> <p><img decoding="async" alt="" class="has" height="95" src="http://img.555519.xyz/uploads3/20220722/2641e908883527ff0b97fc21c51c28d2.jpg"></p> <p>（8）用刚刚查看的密码登录 MySQL：</p> <pre class="has"><code># mysql -uroot -p Enter password: Q?&gt;E.3Ckuzo0</code></pre> <p>（9）修改密码：</p> <p>使用随机生产的密码登录到服务端后，必须马上修改密码，不然会报如下错误：</p> <pre class="has"><code>mysql&gt; show databases;  ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</code></pre> <p>修改密码命令：</p> <pre class="has"><code>mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED BY 'Eq2dICheQd!y';</code></pre> <p>密码必须是大于8位，包含大小写字母、符号和数字</p> <p>否则会提示ERROR 1819 (HY000): Your password does not satisfy the current policy requirements错误。</p> <p>通过msyql环境变量可以查看密码策略的相关信息：</p> <pre class="has"><code>mysql&gt; show variables like '%password%';</code></pre> <p>validate_password_policy：密码策略，默认为MEDIUM策略</p> <p>validate_password_dictionary_file：密码策略文件，策略为STRONG才需要</p> <p>validate_password_length：密码最少长度</p> <p>validate_password_mixed_case_count：大小写字符长度，至少1个</p> <p>validate_password_number_count ：数字至少1个</p> <p>validate_password_special_char_count：特殊字符至少1个</p> <p><em>上述参数是默认策略MEDIUM的密码检查规则。</em></p> <p>（10）添加账户</p> <p>a. 添加远程登录账户：</p> <p>默认只允许root帐户在本地登录，如果要在其它机器上连接mysql，必须修改root允许远程连接，或者添加一个允许远程连接的帐户，为了安全起见，我添加一个新的帐户：</p> <p>GRANT privileges ON 数据库名.表名 TO '用户名'@'主机' IDENTIFIED BY '密码';</p> <pre class="has"><code>mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'test'@'%' IDENTIFIED BY 'Test&amp;0dsza!' WITH GRANT OPTION;</code></pre> <p>b. 添加本地账户</p> <p>不能每次都在root用户下操作，所以创建一个新的账户</p> <pre class="has"><code>mysql&gt; GRANT ALL ON *.* TO bigdata@'localhost' IDENTIFIED BY 'ShzYp!78Mt';</code></pre> <p>创建完成之后刷新：</p> <pre class="has"><code>mysql&gt; flush privileges;</code></pre> <p>检查用户是否创建成功</p> <pre class="has"><code>mysql&gt; select user,host from mysql.user;</code></pre> <p>host——指定该用户在哪个主机上可以登录，"localhost"指该用户只能在本地登录，不能在另外一台机器上远程登录，如果想远程登录，将"localhost"改为"%"，表示在任何一台电脑上都可以登录；也可以指定某台机器可以远程登录；</p> <p>（11）创建数据库：</p> <pre class="has"><code>mysql&gt; create database name DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</code></pre> <p>查看所有数据库： show databases;</p> <p>删除数据库： drop database DB;</p> <p>使用数据库： use database;</p> <p>查看表： show tables;</p> <p>（12）默认配置文件路径：</p> <p>配置文件：/etc/my.cnf</p> <p>日志文件：/var/log//var/log/mysqld.log</p> <p>服务启动脚本：/usr/lib/systemd/system/mysqld.service</p> <p>socket文件：/var/run/mysqld/mysqld.pid</p> <p>（13）卸载MySQL</p> <p>查看有哪些mysql程序： # rpm -qa | grep mysql</p> <p>把所有的mysql卸载： # yum remove mysql*</p> <p>再次查看 # rpm -qa | grep mysql</p> <p>如果已经完全卸载了，再用find / -name *mysql*查看</p> <p>删除etc目录下的my.cnf文件： # rm /etc/my.cnf</p> <p>本文章参考学习了一部分这篇文章的内容：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.linuxidc.com/Linux/2016-09/135288.htm"  rel="nofollow">https://www.linuxidc.com/Linux/2016-09/135288.htm</a></p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-65127.htm">一文解决浏览器跨域问题</a></p>
+                                        <p>下一个：<a href="/news/article-65736.htm">青岛想念动物医院曹大夫（青岛动物医学）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-45906.htm" title="我的树莓派 Raspberry Pi Zero 2W 折腾笔记，记录一些遇到的问题和解决办法">我的树莓派 Raspberry Pi Zero 2W 折腾笔记，记录一些遇到的问题和解决办法</a></li>
+                        <li class="py-2"><a href="/news/article-63273.htm" title="安徽淮北宠物救助站（淮北动物救助站）">安徽淮北宠物救助站（淮北动物救助站）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-3-free-ssr-node.htm" title="2月3日最新机场订阅 | 18.4M/S|2025年Clash/V2ray/SSR/Shadowrocket免费节点地址链接分享">2月3日最新机场订阅 | 18.4M/S|2025年Clash/V2ray/SSR/Shadowrocket免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-7-free-node-subscribe.htm" title="2月7日最新机场订阅 | 21.5M/S|2025年Clash/Shadowrocket/V2ray/SSR免费节点地址链接分享">2月7日最新机场订阅 | 21.5M/S|2025年Clash/Shadowrocket/V2ray/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-61487.htm" title="农大动物医院有夜间急诊吗 农大动物医院有夜间急诊吗多少钱">农大动物医院有夜间急诊吗 农大动物医院有夜间急诊吗多少钱</a></li>
+                        <li class="py-2"><a href="/news/article-62085.htm" title="瑞派宠物医院招聘电话（瑞派宠物医院招聘信息）">瑞派宠物医院招聘电话（瑞派宠物医院招聘信息）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-clash-subscribe.htm" title="1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享">1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-12-node-share.htm" title="2月12日最新机场订阅 | 20.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">2月12日最新机场订阅 | 20.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-55778.htm" title="Group velocity and phase velocity(群速度与相速度)">Group velocity and phase velocity(群速度与相速度)</a></li>
+                        <li class="py-2"><a href="/news/article-58702.htm" title="宠物领养系统毕业论文的总结怎么写（宠物领养系统数据库）">宠物领养系统毕业论文的总结怎么写（宠物领养系统数据库）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">12</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
