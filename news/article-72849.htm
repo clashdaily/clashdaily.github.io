@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-72849.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>通过源码了解Java的自动装箱拆箱</title>
+        <meta name="description" content="什么叫装箱 &amp; 拆箱？ 将int基本类型转换为Integer包装类型的过程叫做装箱，反之叫拆箱。 首先看一段代码 public static void main(String[] args) " />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-72849.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="通过源码了解Java的自动装箱拆箱" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/cf5afa812c2615e5db9ceccd12a1f33a.webp" />
+        <meta property="og:release_date" content="2025-03-13T09:21:30" />
+    <meta property="og:updated_time" content="2025-03-13T09:21:30" />
+        <meta property="og:description" content="什么叫装箱 &amp; 拆箱？ 将int基本类型转换为Integer包装类型的过程叫做装箱，反之叫拆箱。 首先看一段代码 public static void main(String[] args) " />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="通过源码了解Java的自动装箱拆箱">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                通过源码了解Java的自动装箱拆箱                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<h2 id="什么叫装箱--拆箱">什么叫装箱 &amp; 拆箱？</h2> <p>将int基本类型转换为Integer包装类型的过程叫做装箱，反之叫拆箱。</p> <h2 id="首先看一段代码">首先看一段代码</h2> <pre><code class="language-java">public static void main(String[] args) {     Integer a = 127, b = 127;     Integer c = 128, d= 128;     System.out.println(a == b); // true     System.out.println(c == d); // false }</code></pre> <p>不知道还有没有人不知道这段代码出现true和false的原因。由此我们引出了Java装箱的这个操作。我们带着疑问去进行分析。</p> <h2 id="装箱valueof">装箱（valueOf()）</h2> <pre><code class="language-java">public static Integer valueOf(int i) {     // -128 - 127     if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)         return IntegerCache.cache[i + (-IntegerCache.low)];     return new Integer(i); }</code></pre> <p>我们可以发现，在最开始有一个判断，如果这个值的范围在[-128,127]之间，那么就从这个缓存（Integer数组）中取，如果不在这个范围那么直接new一个。</p> <h3 id="为什么要有-128127的缓存">为什么要有[-128,127]的缓存？</h3> <p>我说说的理解，因为在我们的业务中，可能存在各种状态和标识等Integer类型的字段，这些值一般都是0,1,2,3之类的，而且出现的比较频繁，如果没有缓存，那么就需要频繁的new对象，然后再释放，就非常消耗内存空间，所以对于这个缓存就出现了，可以极大的帮助我们优化一些空间上的浪费。</p> <h3 id="为什么是-128127">为什么是[-128,127]？</h3> <p>这个我看了一下，具体为什么这里就不详说了，主要还是依赖计算机基础知识，在你了解了什么是原码、反码、补码。就很容易知道为什么是这个范围区间了。</p> <p>这个值也是可以通过启动参数进行更改的。</p> <p>-XX:AutoBoxCacheMax=(size)</p> <h3 id="自动装箱带来的性能问题">自动装箱带来的性能问题</h3> <p>那么看到现在你应该明白上面代码出现不同结果的原因了，那么你有没有想过，比如我们业务中一个for循环中，出现了统计数据类似这样的操作，如果存在自动装箱，那么会出现什么问题？我们看下面一段代码。</p> <pre><code class="language-java">public static void main(String[] args) {     long startTime = System.currentTimeMillis();     Integer count = 0;     // int count = 0;     for (int i = 0; i &lt; 5000000; i++) {         count += i;     }     System.out.println("计算时长：" + (System.currentTimeMillis() - startTime) + " ms"); }  // 执行结果： // Integer 计算时长：51 ms // int 计算时长：6 ms</code></pre> <p>那么通过执行结果可以明显的发现自动装箱频繁的new对象、分配内存，造成时间和空间上的性能损耗。</p> <h3 id="小总结">小总结</h3> <p>通过上面的源码阅读和测试分析，我们可以得出结论，我们平时在进行计算统计，或者方法入参的时候，应该尽量的避免这种类型转换的问题。来提升我们整个代码的执行效率。</p> <h2 id="拆箱intvalue">拆箱(intValue)</h2> <p>拆箱总体没有什么复杂的逻辑，直接返回这个数值的基本类型。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-72848.htm">[js] 回调函数 回调地狱 Promise async/await</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-70869.htm" title="厦门宠物猫咪免费领养地点（厦门宠物猫咪免费领养地点有哪些）">厦门宠物猫咪免费领养地点（厦门宠物猫咪免费领养地点有哪些）</a></li>
+                        <li class="py-2"><a href="/news/article-38780.htm" title="动物疫苗经销商名单公示时间（动物疫苗厂家排名）">动物疫苗经销商名单公示时间（动物疫苗厂家排名）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-15-free-ssr-subscribe.htm" title="2月15日最新机场订阅 | 18.1M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享">2月15日最新机场订阅 | 18.1M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-clash-subscribe.htm" title="1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享">1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-39448.htm" title="免费宠物领养网（免费宠物领养网）">免费宠物领养网（免费宠物领养网）</a></li>
+                        <li class="py-2"><a href="/news/article-46889.htm" title="小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢">小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-16-free-node-subscribe-links.htm" title="1月16日最新机场订阅 | 20.9M/S|2025年SSR/Shadowrocket/V2ray/Clash免费节点地址链接分享">1月16日最新机场订阅 | 20.9M/S|2025年SSR/Shadowrocket/V2ray/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-1-clash-node.htm" title="3月1日最新机场订阅 | 18.3M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享">3月1日最新机场订阅 | 18.3M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-8-free-ssr-node.htm" title="2月8日最新机场订阅 | 18.2M/S|2025年V2ray/Clash/SSR/Shadowrocket免费节点地址链接分享">2月8日最新机场订阅 | 18.2M/S|2025年V2ray/Clash/SSR/Shadowrocket免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-39954.htm" title="动物疫苗经营范围有哪些类型（动物疫苗经营许可）">动物疫苗经营范围有哪些类型（动物疫苗经营许可）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">39</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
