@@ -163,6 +163,7 @@
                   				  				  				<h2 id="什么叫装箱--拆箱">什么叫装箱 &amp; 拆箱？</h2> <p>将int基本类型转换为Integer包装类型的过程叫做装箱，反之叫拆箱。</p> <h2 id="首先看一段代码">首先看一段代码</h2> <pre><code class="language-java">public static void main(String[] args) {     Integer a = 127, b = 127;     Integer c = 128, d= 128;     System.out.println(a == b); // true     System.out.println(c == d); // false }</code></pre> <p>不知道还有没有人不知道这段代码出现true和false的原因。由此我们引出了Java装箱的这个操作。我们带着疑问去进行分析。</p> <h2 id="装箱valueof">装箱（valueOf()）</h2> <pre><code class="language-java">public static Integer valueOf(int i) {     // -128 - 127     if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)         return IntegerCache.cache[i + (-IntegerCache.low)];     return new Integer(i); }</code></pre> <p>我们可以发现，在最开始有一个判断，如果这个值的范围在[-128,127]之间，那么就从这个缓存（Integer数组）中取，如果不在这个范围那么直接new一个。</p> <h3 id="为什么要有-128127的缓存">为什么要有[-128,127]的缓存？</h3> <p>我说说的理解，因为在我们的业务中，可能存在各种状态和标识等Integer类型的字段，这些值一般都是0,1,2,3之类的，而且出现的比较频繁，如果没有缓存，那么就需要频繁的new对象，然后再释放，就非常消耗内存空间，所以对于这个缓存就出现了，可以极大的帮助我们优化一些空间上的浪费。</p> <h3 id="为什么是-128127">为什么是[-128,127]？</h3> <p>这个我看了一下，具体为什么这里就不详说了，主要还是依赖计算机基础知识，在你了解了什么是原码、反码、补码。就很容易知道为什么是这个范围区间了。</p> <p>这个值也是可以通过启动参数进行更改的。</p> <p>-XX:AutoBoxCacheMax=(size)</p> <h3 id="自动装箱带来的性能问题">自动装箱带来的性能问题</h3> <p>那么看到现在你应该明白上面代码出现不同结果的原因了，那么你有没有想过，比如我们业务中一个for循环中，出现了统计数据类似这样的操作，如果存在自动装箱，那么会出现什么问题？我们看下面一段代码。</p> <pre><code class="language-java">public static void main(String[] args) {     long startTime = System.currentTimeMillis();     Integer count = 0;     // int count = 0;     for (int i = 0; i &lt; 5000000; i++) {         count += i;     }     System.out.println("计算时长：" + (System.currentTimeMillis() - startTime) + " ms"); }  // 执行结果： // Integer 计算时长：51 ms // int 计算时长：6 ms</code></pre> <p>那么通过执行结果可以明显的发现自动装箱频繁的new对象、分配内存，造成时间和空间上的性能损耗。</p> <h3 id="小总结">小总结</h3> <p>通过上面的源码阅读和测试分析，我们可以得出结论，我们平时在进行计算统计，或者方法入参的时候，应该尽量的避免这种类型转换的问题。来提升我们整个代码的执行效率。</p> <h2 id="拆箱intvalue">拆箱(intValue)</h2> <p>拆箱总体没有什么复杂的逻辑，直接返回这个数值的基本类型。</p> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-72848.htm">[js] 回调函数 回调地狱 Promise async/await</a></p>
+                                        <p>下一个：<a href="/news/article-73516.htm">哈尔滨东北农大附近汉庭酒店（哈尔滨东北农业大学附近宾馆）</a></p>
                                     </div>
                                     </div>
                     <div class="col-md-3">
@@ -172,16 +173,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/news/article-70869.htm" title="厦门宠物猫咪免费领养地点（厦门宠物猫咪免费领养地点有哪些）">厦门宠物猫咪免费领养地点（厦门宠物猫咪免费领养地点有哪些）</a></li>
-                        <li class="py-2"><a href="/news/article-38780.htm" title="动物疫苗经销商名单公示时间（动物疫苗厂家排名）">动物疫苗经销商名单公示时间（动物疫苗厂家排名）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-2-15-free-ssr-subscribe.htm" title="2月15日最新机场订阅 | 18.1M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享">2月15日最新机场订阅 | 18.1M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-1-15-free-clash-subscribe.htm" title="1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享">1月15日最新机场订阅 | 22.5M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享</a></li>
-                        <li class="py-2"><a href="/news/article-39448.htm" title="免费宠物领养网（免费宠物领养网）">免费宠物领养网（免费宠物领养网）</a></li>
-                        <li class="py-2"><a href="/news/article-46889.htm" title="小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢">小型宠物粮加工厂需要什么手续和证件呢 小型宠物粮加工厂需要什么手续和证件呢</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-1-16-free-node-subscribe-links.htm" title="1月16日最新机场订阅 | 20.9M/S|2025年SSR/Shadowrocket/V2ray/Clash免费节点地址链接分享">1月16日最新机场订阅 | 20.9M/S|2025年SSR/Shadowrocket/V2ray/Clash免费节点地址链接分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-3-1-clash-node.htm" title="3月1日最新机场订阅 | 18.3M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享">3月1日最新机场订阅 | 18.3M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-2-8-free-ssr-node.htm" title="2月8日最新机场订阅 | 18.2M/S|2025年V2ray/Clash/SSR/Shadowrocket免费节点地址链接分享">2月8日最新机场订阅 | 18.2M/S|2025年V2ray/Clash/SSR/Shadowrocket免费节点地址链接分享</a></li>
-                        <li class="py-2"><a href="/news/article-39954.htm" title="动物疫苗经营范围有哪些类型（动物疫苗经营许可）">动物疫苗经营范围有哪些类型（动物疫苗经营许可）</a></li>
+                        <li class="py-2"><a href="/news/article-63273.htm" title="安徽淮北宠物救助站（淮北动物救助站）">安徽淮北宠物救助站（淮北动物救助站）</a></li>
+                        <li class="py-2"><a href="/news/article-74869.htm" title="Springboot之请求映射">Springboot之请求映射</a></li>
+                        <li class="py-2"><a href="/news/article-65736.htm" title="青岛想念动物医院曹大夫（青岛动物医学）">青岛想念动物医院曹大夫（青岛动物医学）</a></li>
+                        <li class="py-2"><a href="/news/article-59743.htm" title="c级宠物美容师证书（c级宠物美容师证书图片）">c级宠物美容师证书（c级宠物美容师证书图片）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-24-free-clash.htm" title="2月24日最新机场订阅 | 19.4M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享">2月24日最新机场订阅 | 19.4M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-3-free-ssr-node.htm" title="2月3日最新机场订阅 | 18.4M/S|2025年Clash/V2ray/SSR/Shadowrocket免费节点地址链接分享">2月3日最新机场订阅 | 18.4M/S|2025年Clash/V2ray/SSR/Shadowrocket免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-54121.htm" title="vue组件间的传值，父传子，子传父，兄弟之间传值，跨级传值">vue组件间的传值，父传子，子传父，兄弟之间传值，跨级传值</a></li>
+                        <li class="py-2"><a href="/news/article-55224.htm" title="springboot整合SpringSecurity实现认证、授权功能简单入门案例">springboot整合SpringSecurity实现认证、授权功能简单入门案例</a></li>
+                        <li class="py-2"><a href="/news/article-49882.htm" title="武汉哪家宠物医院收费合理些（武汉良心的宠物医院）">武汉哪家宠物医院收费合理些（武汉良心的宠物医院）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-free-clash.htm" title="3月2日最新机场订阅 | 20M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">3月2日最新机场订阅 | 20M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
                     </ul>
     </div>
 </div>
@@ -193,7 +194,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">39</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+                <h4><span class="badge" style="float: right;">48</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
             </li>
                         <li class="py-2">
                 <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
