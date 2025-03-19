@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-75535.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>编码器原理与电机转速、角度控制</title>
+        <meta name="description" content="前言：由于写博客过程中出了点小插曲，再加上第二次积分赛的到来，导致第一次积分赛的总结一直鸽到现在。。。现在先水一篇。：-）  我们的有刷电机带有一个霍尔编码器，用于获取速度、角度等信息，以完成云台要求" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-75535.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="编码器原理与电机转速、角度控制" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/9652565f95d767e41052d0c56efc2cbc.webp" />
+        <meta property="og:release_date" content="2025-03-17T09:39:53" />
+    <meta property="og:updated_time" content="2025-03-17T09:39:53" />
+        <meta property="og:description" content="前言：由于写博客过程中出了点小插曲，再加上第二次积分赛的到来，导致第一次积分赛的总结一直鸽到现在。。。现在先水一篇。：-）  我们的有刷电机带有一个霍尔编码器，用于获取速度、角度等信息，以完成云台要求" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="编码器原理与电机转速、角度控制">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                编码器原理与电机转速、角度控制                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<blockquote> <p>前言：由于写博客过程中出了点小插曲，再加上第二次积分赛的到来，导致第一次积分赛的总结一直鸽到现在。。。现在先水一篇。：-）</p> </blockquote> <p>我们的有刷电机带有一个霍尔编码器，用于获取速度、角度等信息，以完成云台要求的转速与角度控制。</p> <p>以下是该电机编码器的参数：</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/839e2394089ed5ed5657f863f48d76f4.jpg" alt="编码器原理与电机转速、角度控制"></p> </h1> <p>我们这里使用的是<strong>增量式编码器</strong>。</p> <p>增量式编码器是将设备运动时的位移信息变成连续的脉冲信号，脉冲个数表示位移量的大小。其特点如下：</p> <ul> <li> <p>只有当<strong>设备运动时</strong>才会输出信号。</p> </li> <li> <p>一般会输出<strong>通道A和通道B 两组信号，并且有90° 的相位差（1/4个周期）</strong>，同时采集这两组信号就可以计算设备的运动速度和方向。</p> <p>如下图，通道A和通道B的信号的周期相同，且相位相差1/4个周期，结合两相的信号值：</p> </li> <li> <ul> <li>当B相和A相先是都读到高电平（1 1），再B读到高电平，A读到低电平（1 0），则为<strong>顺时针</strong>转</li> <li>当B相和A相先是都读到低电平（0 0），再B读到高电平，A读到低电平（1 0），则为<strong>逆时针</strong>转</li> </ul> </li> <li> <p>除通道A、通道B 以外，还会设置一个额外的<strong>通道Z 信号，表示编码器特定的参考位置</strong></p> <p>如下图，传感器转一圈后Z 轴信号才会输出一个脉冲，在Z轴输出时，可以通过将AB通道的计数清零，实现对码盘绝对位置的计算。</p> </li> <li> <p>增量式编码器只输出设备的位置变化和运动方向，不会输出设备的绝对位置。</p> </li> </ul> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/91ceb8ceb427682650b33922784567fb.jpg" alt="编码器原理与电机转速、角度控制"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/5b940554189f1c1690f071eff9b75784.jpg" alt="编码器原理与电机转速、角度控制"></p> <p>分辨率：指编码器能够分辨的最小单位。</p> <ul> <li>对于<strong>增量式</strong>编码器，其分辨率表示为编码器转轴旋转一圈所产生的脉冲数，即<strong>脉冲数/转(Pulse Per Revolution 或PPR)</strong>。由第一张图可知，我们的电机PPR为11，即旋转一圈产生11个脉冲。</li> </ul> <p>如何采集编码器的脉冲数据呢？恰好我们的STM32单片机定时器模式中有一个<strong>定时器的编码器模式</strong>，我们通常用它来测量脉冲变化值。通过访问<strong>计数器cnt</strong>的值（编码器模式中使用上下计数）来检测接收到的脉冲数。</p> <p>之前文章的工程配置里有提到，我们设置TIM2为编码器模式。</p> </h1> <p>统计固定时间间隔内的编码器的脉冲数，来计算速度值。我们需要根据编码器的参数来得到转速的计算方式。我们打开一个定时器中断TIM4，每隔0.01s测量一次转速。</p> <p><strong>速度计算方法</strong>：这里计算的是真实的电机的物理转速n（r/s）</p> <div class="math display">\[n=\frac{M_0}{(C*T_0)}<br /> \]</div> <ul> <li> <p>C：编码器单圈总脉冲数，也有一个公式：</p> </li> <li> <div class="math display">\[C=ρ×PPR<br /> \]</div> <ul> <li>ρ：电机减速比，即电机转轴转1圈，电机本身要转多少圈</li> <li>PPR：编码器分辨率</li> </ul> </li> <li> <p>T0：每次的统计时间（单位为秒）</p> </li> <li> <p>M0：该时间内统计到的编码器脉冲数，通过读取这次和上次定时器计数器的值cnt得到</p> </li> </ul> <p>我们这里减速比ρ经测试是20。PPR是11，因为定时器中断为100Hz，T0为0.01。</p> </h1> <p>具体原理同速度测量，直接上公式：</p> <div class="math display">\[Angle=\frac{N_0}{C}×360<br /> \]</div> <ul> <li>C：编码器单圈总脉冲数，解释见上。</li> <li>N0：该时间内统计到的编码器脉冲数，通过读取这次定时器计数器的值cnt得到</li> </ul> </h1> <p>基于<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/qhwyx/p/16019021.html"  target="_blank" rel="nofollow">上一篇文章</a>添加以下代码。</p> <h2 id="1添加变量">1、添加变量</h2> <pre><code class="language-C++">float speed; float angle; int32_t cnt; int32_t last_cnt;</code></pre> <h2 id="2使能定时器中断和编码器模式">2、使能定时器中断和编码器模式</h2> <pre><code class="language-C++">/* USER CODE BEGIN 2 */ HAL_TIM_Base_Start_IT(&amp;htim4); HAL_TIM_Encoder_Start(&amp;htim2, TIM_CHANNEL_ALL); /* USER CODE END 2 */</code></pre> <h2 id="3添加中断回调函数">3、添加中断回调函数</h2> <pre><code class="language-C++">/* USER CODE BEGIN 4 */ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {     if(htim == &amp;htim4)     {         cnt = (short)TIM2-&gt;CNT;                               //tim2计数器的值            speed = (float)(cnt - last_cnt) / 22.0f / 20 * 100;         angle = ((float)cnt) / 22.0f / 20 * 360;              //保存上一次计数器的值         last_cnt = cnt;     } } /* USER CODE END 4 */</code></pre> <h2 id="4转速控制">4、转速控制</h2> <p>PWM占空比越大，提供给电机的平均电压越大，电机转速就高。反之PWM占空比越小，提供给电机的平均电压越小，电机转速就低。</p> <p>我们之前工程配置输出的PWM占空比为50%，这里加大转速，占空比设为70%。</p> <pre><code class="language-C++">set_pwm(700);</code></pre> </h1> <p>见图一，和<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/qhwyx/p/16019021.html"  target="_blank" rel="nofollow">上一篇文章</a>，编码器信号线黄线与绿线接单片机PA0与PA1引脚，得到AB相脉冲。其余和上一篇文章一致。</p> <p>在Debug模式下观测PWM占空比分别为50%与70%时speed与angle数据。当然在串口上也能看。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/5af27a565c53b28a0ee77e13d1a8be58.jpg" alt="编码器原理与电机转速、角度控制"></p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/a37092aa85b358018462632d943e2b5d.jpg" alt="编码器原理与电机转速、角度控制"></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-74870.htm">Shell基础Bash基本功能（多命令顺序执行）</a></p>
+                                        <p>下一个：<a href="/news/article-75536.htm">济南宠物免费赠送信息（济南宠物领养济南宠物赠送）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-73517.htm" title="宠物店一年利润怎么样知乎（宠物店一年盈利）">宠物店一年利润怎么样知乎（宠物店一年盈利）</a></li>
+                        <li class="py-2"><a href="/news/article-53035.htm" title="PHP可见性模式">PHP可见性模式</a></li>
+                        <li class="py-2"><a href="/news/article-63889.htm" title="【Mysql】- binlog 日志解析">【Mysql】- binlog 日志解析</a></li>
+                        <li class="py-2"><a href="/news/article-67617.htm" title="动物医院资质级别有哪些要求和标准 动物医院资质级别有哪些要求和标准呢">动物医院资质级别有哪些要求和标准 动物医院资质级别有哪些要求和标准呢</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-26-free-clash.htm" title="1月26日最新机场订阅 | 21.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">1月26日最新机场订阅 | 21.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-45907.htm" title="小型宠物粮食加工设备有哪些品牌 小型宠物粮食加工设备有哪些品牌好">小型宠物粮食加工设备有哪些品牌 小型宠物粮食加工设备有哪些品牌好</a></li>
+                        <li class="py-2"><a href="/news/article-55224.htm" title="springboot整合SpringSecurity实现认证、授权功能简单入门案例">springboot整合SpringSecurity实现认证、授权功能简单入门案例</a></li>
+                        <li class="py-2"><a href="/news/article-70225.htm" title="宠物打疫苗后多久可以驱虫（宠物打完疫苗多久可以吃饭）">宠物打疫苗后多久可以驱虫（宠物打完疫苗多久可以吃饭）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-15-free-ssr-node.htm" title="3月15日最新机场订阅 | 19.2M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">3月15日最新机场订阅 | 19.2M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-46380.htm" title="为什么猫不打疫苗不能绝育呢知乎（为什么没打疫苗的猫不能绝育）">为什么猫不打疫苗不能绝育呢知乎（为什么没打疫苗的猫不能绝育）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">57</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
