@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-81010.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>java高级用法之:在JNA中使用类型映射</title>
+        <meta name="description" content="目录  简介 类型映射的本质 TypeMapper NativeMapped 总结    JNA中有很多种映射，library的映射，函数的映射还有函数参数和返回值的映射，libary和函数的映射比较" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-81010.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="java高级用法之:在JNA中使用类型映射" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/7b2ac8016d15dd9dbb90be306ef95ae6.webp" />
+        <meta property="og:release_date" content="2025-03-25T08:18:00" />
+    <meta property="og:updated_time" content="2025-03-25T08:18:00" />
+        <meta property="og:description" content="目录  简介 类型映射的本质 TypeMapper NativeMapped 总结    JNA中有很多种映射，library的映射，函数的映射还有函数参数和返回值的映射，libary和函数的映射比较" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="java高级用法之:在JNA中使用类型映射">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                java高级用法之:在JNA中使用类型映射                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<div class="toc"> <div class="toc-container-header">目录</div> <ul> <li><a href="#%E7%AE%80%E4%BB%8B" rel="nofollow">简介</a></li> <li><a href="#%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84%E7%9A%84%E6%9C%AC%E8%B4%A8" rel="nofollow">类型映射的本质</a></li> <li><a href="#typemapper" rel="nofollow">TypeMapper</a></li> <li><a href="#nativemapped" rel="nofollow">NativeMapped</a></li> <li><a href="#%E6%80%BB%E7%BB%93" rel="nofollow">总结</a></li> </ul> </div> </h1> <p>JNA中有很多种映射，library的映射，函数的映射还有函数参数和返回值的映射，libary和函数的映射比较简单，我们在之前的文章中已经讲解过了，对于类型映射来说，因为JAVA中的类型种类比较多，所以这里我们将JNA的类型映射提取出来单独讲解。</p> </h1> <p>我们之前提到在JNA中有两种方法来映射JAVA中的方法和native libary中的方法，一种方法叫做interface mapping，一种方式叫做direct mapping。</p> <p>但是我们有没有考虑过这两种映射的本质是什么呢？</p> <p>比如native有一个方法，我们是如何将JAVA代码中的方法参数传递给native方法，并且将native方法的返回值转换成JAVA中函数的返回类型呢？</p> <p>答案就是序列化。</p> <p>因为本质上一切的交互都是二进制的交互。JAVA类型和native类型进行转换，最简单的情况就是JAVA类型和native类型底层的数据长度保持一致，这样在进行数据转换的时候就会更加简单。</p> <p>我们看下JAVA类型和native类型的映射和长度关系：</p> <table> <thead> <tr> <th>C Type</th> <th>Native类型的含义</th> <th>Java Type</th> </tr> </thead> <tbody> <tr> <td>char</td> <td>8-bit整型</td> <td>byte</td> </tr> <tr> <td>wchar_t</td> <td>和平台相关</td> <td>char</td> </tr> <tr> <td>short</td> <td>16-bit整型</td> <td>short</td> </tr> <tr> <td>int</td> <td>32-bit整型</td> <td>int</td> </tr> <tr> <td>int</td> <td>boolean flag</td> <td>boolean</td> </tr> <tr> <td>enum</td> <td>枚举类型</td> <td>int (usually)</td> </tr> <tr> <td>long long, __int64</td> <td>64-bit整型</td> <td>long</td> </tr> <tr> <td>float</td> <td>32-bit浮点数</td> <td>float</td> </tr> <tr> <td>double</td> <td>64-bit浮点数</td> <td>double</td> </tr> <tr> <td>pointer (e.g. void*)</td> <td>平台相关</td> <td>Buffer Pointer</td> </tr> <tr> <td>pointer (e.g. void*), array</td> <td>平台相关</td> <td> <p>[] (原始类型数组)</p> </td> </tr> </tbody> </table> <p>上面的JAVA类型都是JDK自带的类型（Pointer除外）。</p> <p>除了JAVA自带的类型映射，JNA内部也定义了一些数据类型，可以跟native的类型进行映射：</p> <table> <thead> <tr> <th>C Type</th> <th>Native类型的含义</th> <th>Java Type</th> </tr> </thead> <tbody> <tr> <td>long</td> <td>和平台相关(32- or 64-bit integer)</td> <td>NativeLong</td> </tr> <tr> <td>const char*</td> <td>字符串 (native encoding or jna.encoding)</td> <td>String</td> </tr> <tr> <td>const wchar_t*</td> <td>字符串 (unicode)</td> <td>WString</td> </tr> <tr> <td>char**</td> <td>字符串数组</td> <td>String[]</td> </tr> <tr> <td>wchar_t**</td> <td>字符串数组(unicode)</td> <td>WString[]</td> </tr> <tr> <td>void**</td> <td>pointers数组</td> <td>Pointer[]</td> </tr> <tr> <td>struct* struct</td> <td>结构体指针和结构体</td> <td>Structure</td> </tr> <tr> <td>union</td> <td>结构体</td> <td>Union</td> </tr> <tr> <td>struct[]</td> <td>结构体数组</td> <td>Structure[]</td> </tr> <tr> <td>void (*FP)()</td> <td>函数指针 (Java or native)</td> <td>Callback</td> </tr> <tr> <td>pointer (<t> *)</t></td> <td>指针</td> <td>PointerType</td> </tr> <tr> <td>other</td> <td>整数类型</td> <td>IntegerType</td> </tr> <tr> <td>other</td> <td>自定义映射类型</td> <td>NativeMapped</td> </tr> </tbody> </table> </h1> <p>除了定义好的映射关系之外，大家也可以使用TypeMapper来对参数类型进行自定义转换，先来看下TypeMapper的定义：</p> <pre><code>public interface TypeMapper {      FromNativeConverter getFromNativeConverter(Class&lt;?&gt; javaType);      ToNativeConverter getToNativeConverter(Class&lt;?&gt; javaType); }</code></pre> <p>TypeMapper是一个interface，它定义了两个converter方法，分别是getFromNativeConverter和getToNativeConverter。</p> <p>如果要使用TypeMapper则需要实现它而这两个方法即可。我们看一下官方的W32APITypeMapper是怎么实现的：</p> <pre><code> TypeConverter stringConverter = new TypeConverter() {                 @Override                 public Object toNative(Object value, ToNativeContext context) {                     if (value == null)                         return null;                     if (value instanceof String[]) {                         return new StringArray((String[])value, true);                     }                     return new WString(value.toString());                 }                 @Override                 public Object fromNative(Object value, FromNativeContext context) {                     if (value == null)                         return null;                     return value.toString();                 }                 @Override                 public Class&lt;?&gt; nativeType() {                     return WString.class;                 }             };             addTypeConverter(String.class, stringConverter);             addToNativeConverter(String[].class, stringConverter);</code></pre> <p>首先定义一个TypeConverter，在TypeConverter中实现了toNative，fromNative和nativeType三个方法。在这个例子中，native type是WString，而JAVA type是String。而这个TypeConverter就是最终要使用的FromNativeConverter和ToNativeConverter。</p> <p>有了typeMapper，应该怎么使用呢？最简单的方法就是将其添加到Native.load的第三个参数中，如下所示：</p> <pre><code> TestLibrary lib = Native.load("testlib", TestLibrary.class, Collections.singletonMap(Library.OPTION_TYPE_MAPPER, mapper));</code></pre> </h1> <p>TypeMapper需要在调用Native.load方法的时候传入，从而提供JAVA类型和native类型的转换关系。TypeMapper可以看做是类型转换关系的外部维护者。</p> <p>可能很多朋友已经想到了，既然能在JAVA类型外部维护转换关系，那么可不可以在JAVA类型本身对这个转换关系进行维护呢？答案是肯定的，我们只需要在要实现转换类型关系的JAVA类型实现NativeMapped接口即可。</p> <p>先来看下NativeMapped接口的定义：</p> <pre><code>public interface NativeMapped {      Object fromNative(Object nativeValue, FromNativeContext context);      Object toNative();      Class&lt;?&gt; nativeType(); }</code></pre> <p>可以看到NativeMapped中定义要实现的方法基本上和FromNativeConverter、ToNativeConverter中定义的方法一致。</p> <p>下面举一个具体的例子来说明一下NativeMapped到底应该怎么使用。首先我们定义一个enum类实现NativeMapped接口：</p> <pre><code>    public enum TestEnum implements NativeMapped {         VALUE1, VALUE2;          @Override         public Object fromNative(Object nativeValue, FromNativeContext context) {             return values()[(Integer) nativeValue];         }          @Override         public Object toNative() {             return ordinal();         }          @Override         public Class&lt;?&gt; nativeType() {             return Integer.class;         }     }</code></pre> <p>这个类实现了从Integer到TestEnum枚举的转换。</p> <p>要想使用该TestEnum类的话，需要定义一个interface：</p> <pre><code>     public static interface EnumerationTestLibrary extends Library {         TestEnum returnInt32Argument(TestEnum arg);     }</code></pre> <p>具体调用逻辑如下：</p> <pre><code>EnumerationTestLibrary lib = Native.load("testlib", EnumerationTestLibrary.class); assertEquals("Enumeration improperly converted", TestEnum.VALUE1, lib.returnInt32Argument(TestEnum.VALUE1)); assertEquals("Enumeration improperly converted", TestEnum.VALUE2, lib.returnInt32Argument(TestEnum.VALUE2));</code></pre> <p>可以看到，因为NativeMapped中已经包含了类型转换的信息，所以不需要再指定TypeMapper了。</p> <blockquote> <p>注意，这里用到了testlib，这个testlib是从JNA的native模块中编译出来的，如果你是MAC环境的话可以拷贝JNA代码，运行ant native即可得到，编译完成之后，将这个libtestlib.dylib拷贝到你项目中的resources目录下面darwin-aarch64或者darwin-x86即可。</p> </blockquote> <p>有不会的同学，可以联系我。</p> </h1> <p>本文讲解了JNA中的类型映射规则和自定义类型映射的方法。</p> <p>本文的代码：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/ddean2009/learn-java-base-9-to-20.git"  target="_blank" rel="nofollow">https://github.com/ddean2009/learn-java-base-9-to-20.git</a></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-80291.htm">怎么给猫&#25171;&#38024;打在哪里（怎样给猫&#25171;&#38024;需要扎入多深）</a></p>
+                                        <p>下一个：<a href="/news/article-81011.htm">动物园宠物认养流程（动物园认领的动物可以拿回家吗）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-43910.htm" title="学美容需要多少费用（学美容一般要多少学费）">学美容需要多少费用（学美容一般要多少学费）</a></li>
+                        <li class="py-2"><a href="/news/article-62675.htm" title="宠物美容师基本工资一般多少（宠物美容师基本工资一般多少）">宠物美容师基本工资一般多少（宠物美容师基本工资一般多少）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-10-free-node-subscribe.htm" title="3月10日最新机场订阅 | 19.3M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享">3月10日最新机场订阅 | 19.3M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-76212.htm" title="北京中国农业大学动物医院电话（中国农业大学动物医院排班表）">北京中国农业大学动物医院电话（中国农业大学动物医院排班表）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-3-clash-v2ray-ss-ssr.htm" title="3月3日最新机场订阅 | 21.2M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享">3月3日最新机场订阅 | 21.2M/S|2025年Shadowrocket/SSR/Clash/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-17-free-clash.htm" title="2月17日最新机场订阅 | 18.1M/S|2025年Shadowrocket/V2ray/SSR/Clash免费节点地址链接分享">2月17日最新机场订阅 | 18.1M/S|2025年Shadowrocket/V2ray/SSR/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-81010.htm" title="java高级用法之:在JNA中使用类型映射">java高级用法之:在JNA中使用类型映射</a></li>
+                        <li class="py-2"><a href="/news/article-74870.htm" title="Shell基础Bash基本功能（多命令顺序执行）">Shell基础Bash基本功能（多命令顺序执行）</a></li>
+                        <li class="py-2"><a href="/news/article-49883.htm" title="动物疫苗注射注意事项及禁忌有哪些呢（动物疫苗的正确使用方法）">动物疫苗注射注意事项及禁忌有哪些呢（动物疫苗的正确使用方法）</a></li>
+                        <li class="py-2"><a href="/news/article-41416.htm" title="动物医院看病贵吗现在 动物医院看病贵吗现在多少钱">动物医院看病贵吗现在 动物医院看病贵吗现在多少钱</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">75</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
