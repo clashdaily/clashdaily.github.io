@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-81689.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Zalando Postgres Operator  快速上手</title>
+        <meta name="description" content="本指南旨在让您快速了解在本地Kubernetes 环境中使用Postgres Operator。 前提条件 由于Postgres Operator 是为Kubernetes (K8s) 框架设计的，因" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-81689.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="Zalando Postgres Operator  快速上手" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/778d9ab0ceba7a016a84d582f431d3a5.webp" />
+        <meta property="og:release_date" content="2025-03-26T08:55:46" />
+    <meta property="og:updated_time" content="2025-03-26T08:55:46" />
+        <meta property="og:description" content="本指南旨在让您快速了解在本地Kubernetes 环境中使用Postgres Operator。 前提条件 由于Postgres Operator 是为Kubernetes (K8s) 框架设计的，因" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Zalando Postgres Operator  快速上手">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                Zalando Postgres Operator  快速上手                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<p><img decoding="async" src="http://img.555519.xyz/uploads3/20220510/e8df01f7d4bec3669b356c17d017c74d.jpg" alt="Zalando Postgres Operator  快速上手"></p> <p>本指南旨在让您快速了解在本地<code>Kubernetes</code> 环境中使用<code>Postgres Operator</code>。</p> <h2 id="前提条件">前提条件</h2> <p>由于<code>Postgres Operator</code> 是为<code>Kubernetes (K8s)</code> 框架设计的，因此首先设置它。 对于本地测试，我们建议使用以下解决方案之一：</p> <ul> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/kubernetes/minikube/releases"  target="_blank" rel="nofollow">minikube</a>, 在<code>VM</code> 内创建单节点<code>K8s</code> 集群（需要<code>KVM</code> 或<code>VirtualBox</code>） <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/kubernetes/minikube/releases"  target="_blank" rel="nofollow">https://github.com/kubernetes/minikube/releases</a></small></li> </ul> </li> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://kind.sigs.k8s.io/"  target="_blank" rel="nofollow">kind</a> 和<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://k3d.io"  target="_blank" rel="nofollow">k3d</a>, 允许创建在<code>Docker</code> 上运行的多节点<code>K8s</code> 集群（需要<code>Docker</code>） <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://kind.sigs.k8s.io/"  target="_blank" rel="nofollow">https://kind.sigs.k8s.io/</a></small></li> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://k3d.io"  target="_blank" rel="nofollow">https://k3d.io</a></small></li> </ul> </li> </ul> <p>要与<code>K8s</code> 基础设施交互，请安装其<code>CLI</code> 运行时<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl"  target="_blank" rel="nofollow">kubectl</a>。</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl"  target="_blank" rel="nofollow">https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl</a></small></li> </ul> <p>本快速入门假设您已经启动了<code>minikube</code> 或创建了本地<code>kind</code> 集群。 请注意，您还可以使用<code>Docker Desktop for Mac</code> 中内置的<code>K8s</code> 支持来遵循本教程的步骤。您必须将<code>minikube start</code> 和<code>minikube delete</code> 替换为您的启动操作，以获得<code>Docker</code> 内置的<code>K8s</code> 支持。</p> <h2 id="配置选项">配置选项</h2> <p>只能在部署新的<code>Postgres</code> 集群之前配置<code>Postgres Operator</code>。这可以通过两种方式工作：通过<code>ConfigMap</code> 或自定义<code>OperatorConfiguration</code> 对象。有关配置的更多详细信息，请参见<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://postgres-operator.readthedocs.io/en/latest/reference/operator_parameters/"  target="_blank" rel="nofollow">此处</a>。</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://postgres-operator.readthedocs.io/en/latest/reference/operator_parameters/"  target="_blank" rel="nofollow">https://postgres-operator.readthedocs.io/en/latest/reference/operator_parameters/</a></small></li> </ul> <h2 id="部署选项">部署选项</h2> <p><code>Postgres Operator</code> 可以通过以下方式部署：</p> <ul> <li>Manual deployment</li> <li>Kustomization</li> <li>Helm chart</li> </ul> <h3 id="kubernetes-上的手动部署设置">Kubernetes 上的手动部署设置</h3> <p>只需应用<code>yaml</code> 清单即可安装<code>Postgres Operator</code>。注意，我们提供的<code>/manifests</code> 目录仅作为示例；您应该考虑将清单调整为您的<code>K8s</code> 环境（例如：命名空间）。</p> <pre><code class="language-bash"># 首先，克隆存储库并切换到目录 git clone https://github.com/zalando/postgres-operator.git cd postgres-operator  # 按以下顺序应用清单 kubectl create -f manifests/configmap.yaml  # 配置 kubectl create -f manifests/operator-service-account-rbac.yaml  # 身份和权限 kubectl create -f manifests/postgres-operator.yaml  # 部署 kubectl create -f manifests/api-service.yaml  # 通过 UI 使用 operator API</code></pre> <p>有一个<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/kubernetes-sigs/kustomize"  target="_blank" rel="nofollow">Kustomization</a> manifest<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/blob/master/manifests/kustomization.yaml"  target="_blank" rel="nofollow">结合了上述资源</a>（CRD 除外）— 它可以与<code>kubectl 1.14</code> 或更高版本一起使用，如下所示：</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/kubernetes-sigs/kustomize"  target="_blank" rel="nofollow">https://github.com/kubernetes-sigs/kustomize</a></small></li> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/blob/master/manifests/kustomization.yaml"  target="_blank" rel="nofollow">https://github.com/zalando/postgres-operator/blob/master/manifests/kustomization.yaml</a></small></li> </ul> <pre><code class="language-bash">kubectl apply -k github.com/zalando/postgres-operator/manifests</code></pre> <p>为方便起见，我们使用<code>run_operator_locally</code> 脚本通过<code>minikube</code> 自动启动<code>operator</code>。 它应用<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/blob/master/manifests/minimal-postgres-manifest.yaml"  target="_blank" rel="nofollow"><code>acid-minimal-cluster</code></a>。清单。</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/blob/master/manifests/minimal-postgres-manifest.yaml"  target="_blank" rel="nofollow">https://github.com/zalando/postgres-operator/blob/master/manifests/minimal-postgres-manifest.yaml</a></small></li> </ul> <pre><code class="language-bash">./run_operator_locally.sh</code></pre> <h3 id="openshift-上的手动部署设置">OpenShift 上的手动部署设置</h3> <p>要在<code>OpenShift</code> 中安装<code>Postgres Operator</code>，您必须将配置参数<code>kubernetes_use_configmaps</code> 更改为<code>"true"</code>。否则，<code>operator</code> 和<code>Patroni</code> 将在<code>OpenShift</code> 不支持的<code>Endpoints</code> 中存储<code>leader</code> 和配置<code>keys</code>。对于<code>postgres-operator</code> 和<code>postgres-pod</code> 集群角色，这还需要一组稍微不同的规则。</p> <pre><code class="language-bash">oc create -f manifests/operator-service-account-rbac-openshift.yaml</code></pre> <h3 id="helm-chart">Helm chart</h3> <p>或者，可以使用提供的<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://helm.sh/"  target="_blank" rel="nofollow">Helm</a><br /><code>chart</code> 安装<code>operator</code>，从而为您节省手动步骤。克隆此<code>repo</code> 并将目录更改为<code>repo</code> 根目录。安装<code>Helm v3</code> 后，您应该能够运行：</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://helm.sh/"  target="_blank" rel="nofollow">https://helm.sh/</a></small></li> </ul> <pre><code class="language-bash">helm install postgres-operator ./charts/postgres-operator</code></pre> <p>该<code>chart</code> 适用于<code>Helm 2</code> 和<code>Helm 3</code>。使用<code>v3</code> 时，将跳过<code>v2</code> 中的<code>crd-install</code><em>hook</em> 并发出警告。使用<code>Helm 2</code> 安装应用程序的文档可以在<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://v2.helm.sh/docs/"  target="_blank" rel="nofollow">v2 文档</a>中找到。</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://v2.helm.sh/docs/"  target="_blank" rel="nofollow">https://v2.helm.sh/docs/</a></small></li> </ul> <p>该<code>chart</code> 还托管在：</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://opensource.zalando.com/postgres-operator/charts/postgres-operator/"  target="_blank" rel="nofollow">https://opensource.zalando.com/postgres-operator/charts/postgres-operator/</a></small></li> </ul> <h2 id="检查-postgres-operator-是否正在运行">检查 Postgres Operator 是否正在运行</h2> <p>启动<code>operator</code> 可能需要几秒钟。在应用<code>Postgres</code> 集群清单之前检查<code>operator pod</code> 是否正在运行。</p> <pre><code class="language-bash"># 如果您使用 yaml 清单创建了 operator kubectl get pod -l name=postgres-operator  # 如果您使用 helm chart 创建了 operator kubectl get pod -l app.kubernetes.io/name=postgres-operator</code></pre> <p>如果<code>operator</code> 没有进入<code>Running</code> 状态，请使用<code>kubectl describe</code> 检查<code>deployment</code> 或<code>pod</code> 的最新<code>K8s</code> 事件或检查<code>operator</code> 日志：</p> <pre><code class="language-bash">kubectl logs "$(kubectl get pod -l name=postgres-operator --output='name')"</code></pre> <h2 id="部署-operator-ui">部署 operator UI</h2> <p>在以下段落中，我们将描述如何使用<code>kubectl</code> 从命令行访问和管理<code>PostgreSQL</code> 集群。 但也可以通过基于浏览器的<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://postgres-operator.readthedocs.io/en/latest/operator-ui/"  target="_blank" rel="nofollow">Postgres Operator UI</a> 来完成。在部署<code>UI</code> 之前，请确保<code>operator</code> 正在运行，并且可以通过<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/blob/master/manifests/api-service.yaml"  target="_blank" rel="nofollow">K8s service</a> 访问其<code>REST API</code>。此<code>API</code> 的<code>URL</code> 必须在<code>UI</code> 的<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/blob/master/ui/manifests/deployment.yaml#L43"  target="_blank" rel="nofollow">部署清单</a>中配置。</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://postgres-operator.readthedocs.io/en/latest/operator-ui/"  target="_blank" rel="nofollow">https://postgres-operator.readthedocs.io/en/latest/operator-ui/</a></small></li> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/blob/master/manifests/api-service.yaml"  target="_blank" rel="nofollow">https://github.com/zalando/postgres-operator/blob/master/manifests/api-service.yaml</a></small></li> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/blob/master/ui/manifests/deployment.yaml#L43"  target="_blank" rel="nofollow">https://github.com/zalando/postgres-operator/blob/master/ui/manifests/deployment.yaml#L43</a></small></li> </ul> <p>要部署<code>UI</code>，只需应用其所有清单文件或使用<code>UI helm chart</code>：</p> <pre><code class="language-bash"># 手动部署 kubectl apply -f ui/manifests/  # 或 kustomization kubectl apply -k github.com/zalando/postgres-operator/ui/manifests  # 或 helm chart helm install postgres-operator-ui ./charts/postgres-operator-ui</code></pre> <p>与<code>operator</code> 一样，检查<code>UI pod</code> 是否进入<code>Running</code> 状态：</p> <pre><code class="language-bash"># 如果您使用 yaml 清单创建了 operator kubectl get pod -l name=postgres-operator-ui  # 如果您使用 helm chart 创建了 operator kubectl get pod -l app.kubernetes.io/name=postgres-operator-ui</code></pre> <p>您现在可以通过端口转发 UI<code>pod</code>（注意<code>label selector</code>）访问<code>Web</code> 界面，并在浏览器中输入<code>localhost:8081</code>：</p> <pre><code class="language-bash">kubectl port-forward svc/postgres-operator-ui 8081:80</code></pre> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://postgres-operator.readthedocs.io/en/latest/operator-ui/"  target="_blank" rel="nofollow">UI 文档</a>中详细解释了可用选项。</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://postgres-operator.readthedocs.io/en/latest/operator-ui/"  target="_blank" rel="nofollow">https://postgres-operator.readthedocs.io/en/latest/operator-ui/</a></small></li> </ul> <h2 id="创建-postgres-cluster">创建 Postgres cluster</h2> <p>如果<code>operator</code> pod 正在运行，它会侦听有关<code>postgresql</code> 资源的新事件。 现在，是时候提交您的第一个<code>Postgres</code> 集群清单了。</p> <pre><code class="language-bash"># 创建一个 Postgres cluster kubectl create -f manifests/minimal-postgres-manifest.yaml</code></pre> <p>在<code>cluster</code> 清单提交并通过验证后，<code>operator</code> 将创建<code>Service</code> 和<code>Endpoint</code> 资源以及一个<code>StatefulSet</code>，它根据清单中指定的实例数量启动新的<code>Pod</code>。所有资源都像<code>cluster</code> 一样命名。 数据库<code>pod</code> 可以通过它们的数字后缀来识别，从<code>-0</code> 开始。他们运行<code>Zalando</code> 的<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/spilo"  target="_blank" rel="nofollow">Spilo</a> 容器镜像。至于<code>services</code> 和<code>endpoints</code>，将有一个用于<code>master pod</code>，另一个用于所有副本（<code>-repl</code> 后缀）。检查是否所有组件都出现了。使用标签<code>application=spilo</code> 过滤并列出标签<code>spilo-role</code> 以查看当前谁是<code>master</code>。</p> <pre><code class="language-bash"># 检查部署的 cluster kubectl get postgresql  # 检查创建的 database pod kubectl get pods -l application=spilo -L spilo-role  # 检查创建的 service 资源 kubectl get svc -l application=spilo -L spilo-role</code></pre> <h2 id="通过-psql-连接到-postgres-cluster">通过 psql 连接到 Postgres cluster</h2> <p>您可以在<code>database  pod</code> 上创建端口转发以连接到<code>Postgres</code>。有关说明，请参阅<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://postgres-operator.readthedocs.io/en/latest/user/#connect-to-postgresql"  target="_blank" rel="nofollow">用户指南</a>。使用<code>minikube</code> 也很容易从指向<code>master pod</code> 的<code>K8s service</code> 中检索连接字符串：</p> <pre><code class="language-bash">export HOST_PORT=$(minikube service acid-minimal-cluster --url | sed 's,.*/,,') export PGHOST=$(echo $HOST_PORT | cut -d: -f 1) export PGPORT=$(echo $HOST_PORT | cut -d: -f 2)</code></pre> <p>从<code>cluster</code> 中创建的<code>K8s Secret</code> 中检索密码。默认情况下拒绝非加密连接，因此将<code>SSL</code> 模式设置为<code>require</code>：</p> <pre><code class="language-bash">export PGPASSWORD=$(kubectl get secret postgres.acid-minimal-cluster.credentials -o 'jsonpath={.data.password}' | base64 -d) export PGSSLMODE=require psql -U postgres</code></pre> <h2 id="删除-postgres-cluster">删除 Postgres cluster</h2> <p>要删除<code>Postgres</code> 集群，只需删除<code>postgresql</code> 自定义资源。</p> <pre><code class="language-bash">kubectl delete postgresql acid-minimal-cluster</code></pre> <p>这应该删除关联的<code>StatefulSet</code>、<code>database Pods</code>、<code>Services</code> 和<code>Endpoints</code>。<code>PersistentVolume</code> 被释放，<code>PodDisruptionBudget</code> 被删除。但是，<code>Secrets</code> 不会被删除，并且备份将保留在原位。</p> <p>在集群仍在启动或在该阶段卡住时删除集群时，<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/issues/551"  target="_blank" rel="nofollow">可能会</a>删除<code>postgresql</code> 资源，留下孤立的组件。 在创建新的<code>Postgres</code> 集群时，这可能会导致麻烦。对于全新的设置，您可以删除本地<code>minikube</code> 或<code>kind</code> 集群并重新开始。</p> <ul> <li><small><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/zalando/postgres-operator/issues/551"  target="_blank" rel="nofollow">https://github.com/zalando/postgres-operator/issues/551</a></small></li> </ul> <h2 id="更多">更多</h2> <ul> <li><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://mp.weixin.qq.com/s/h7xysw_jU85n1l43HTj7hg"  target="_blank" rel="nofollow">在 Kubernetes 上快速测试 Citus 分布式 PostgreSQL 集群(分布式表，共置，引用表，列存储)</a></li> </ul> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-81011.htm">动物园宠物认养流程（动物园认领的动物可以拿回家吗）</a></p>
+                                        <p>下一个：<a href="/news/article-81690.htm">附近领养宠物小猫的地方（附近领养宠物小狗）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-1-29-free-high-speed-nodes.htm" title="1月29日最新机场订阅 | 19.6M/S|2025年Clash/V2ray/SSR/Shadowrocket免费节点地址链接分享">1月29日最新机场订阅 | 19.6M/S|2025年Clash/V2ray/SSR/Shadowrocket免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-48289.htm" title="动物防疫站几点上班（动物防疫站周末休息吗）">动物防疫站几点上班（动物防疫站周末休息吗）</a></li>
+                        <li class="py-2"><a href="/news/article-44905.htm" title="动物诊所起名（动物诊所属于什么行业）">动物诊所起名（动物诊所属于什么行业）</a></li>
+                        <li class="py-2"><a href="/news/article-81010.htm" title="java高级用法之:在JNA中使用类型映射">java高级用法之:在JNA中使用类型映射</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-1-26-free-clash.htm" title="1月26日最新机场订阅 | 21.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享">1月26日最新机场订阅 | 21.3M/S|2025年V2ray/Clash/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-60312.htm" title="宠物粮食店风险分析报告（宠物粮食营销策划案）">宠物粮食店风险分析报告（宠物粮食营销策划案）</a></li>
+                        <li class="py-2"><a href="/news/article-48290.htm" title="领养狗狗要求（领养狗的要求）">领养狗狗要求（领养狗的要求）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-1-clash-node.htm" title="3月1日最新机场订阅 | 18.3M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享">3月1日最新机场订阅 | 18.3M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-74869.htm" title="Springboot之请求映射">Springboot之请求映射</a></li>
+                        <li class="py-2"><a href="/news/article-68271.htm" title="养猫最忌讳的一个生肖是蛇吗（不宜养猫的生肖）">养猫最忌讳的一个生肖是蛇吗（不宜养猫的生肖）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">66</span> <a href="/date/2025-01/" title="2025-01 归档">2025-01</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
