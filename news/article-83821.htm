@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-83821.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具</title>
+        <meta name="description" content="由于我们有时候需要在基于.net framework的项目上使用（如Winform端应用），有时候有需要在.net core的项目上使用(如.net core的WebAPI），那么我们把基于SQLSu" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-83821.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/9652565f95d767e41052d0c56efc2cbc.webp" />
+        <meta property="og:release_date" content="2025-03-29T08:59:57" />
+    <meta property="og:updated_time" content="2025-03-29T08:59:57" />
+        <meta property="og:description" content="由于我们有时候需要在基于.net framework的项目上使用（如Winform端应用），有时候有需要在.net core的项目上使用(如.net core的WebAPI），那么我们把基于SQLSu" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 &#8211; 伍华聪 _在线工具                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<p>由于我们有时候需要在基于.net framework的项目上使用（如Winform端应用），有时候有需要在.net core的项目上使用(如.net core的WebAPI），那么我们把基于SQLSugar的基础模块封装，编译为.net standard就很有必要，而且由于.net framework和.net core在配置文件上的差异，我们需要对基础配置信息进行不同环境的兼容处理，以便实现基础模块支持.net FrameWork和.net core的项目调用。</p> <p>1、基于.netStandard的类库模块</p> <p>在上篇随笔《<a class="postTitle2 vertical-middle pinned-post" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/wuhuacong/p/15979319.html"   rel="nofollow">基于SqlSugar的数据库访问处理的封装，支持多数据库并使之适应于实际业务开发中</a>（1）》中介绍了对SqlSugar 基础模块的封装处理，为了兼容不同类型的框架，我们可以把它们封装为.net Standard类库。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220501/e54a03830d62e3239d4c926fdb9073e7.jpg" alt="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 - 伍华聪 _在线工具"></p> <p>但是 为了基础模块能够顺利加载不同.net框架下的配置文件信息来初始化数据库连接，我们需要配置不同的加载处理方式来读取处理。</p> <p>如.net Framework的使用App.config中读取配置信息，而.net core项目中使用读取 appSettings.json里面的配置信息。</p> <p>因此需要让它们兼容，我们需要修改项目文件中的TargetFrameworks，让它根据不同的框架生成不同的DLL类库，从而达到支持不同环境下配置文件的读取处理。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220501/0e28ee9348fe8436e7b445d686afc022.jpg" alt="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 - 伍华聪 _在线工具"></p> <p>这样我们查看项目属性，就可以看到类库是支持多种目标框架的了。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220501/d4773f4a4dcb3fab5dcd2a4af4834287.jpg" alt="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 - 伍华聪 _在线工具"></p> <p> 接下来我们对DbContext辅助类进行改动，让它根据不同的目标框架条件来读取配置信息。</p> <p>统一入口就是调用ConfigHelper辅助类来隔离处理操作。</p> <div class="cnblogs_code"> <pre>        <span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> DbContext()         {             </span><span style="color: rgba(0, 0, 255, 1)">this</span>.DbSetting =<span style="color: rgba(0, 0, 0, 1)"> ConfigHelper.GetDbSettings();             Init(</span><span style="color: rgba(0, 0, 255, 1)">this</span><span style="color: rgba(0, 0, 0, 1)">.DbSetting.DbConfigName);         }          </span><span style="color: rgba(0, 0, 255, 1)">public</span> DbContext(<span style="color: rgba(0, 0, 255, 1)">string</span><span style="color: rgba(0, 0, 0, 1)"> dbConfigName)         {             </span><span style="color: rgba(0, 0, 255, 1)">if</span> (<span style="color: rgba(0, 0, 255, 1)">this</span>.DbSetting == <span style="color: rgba(0, 0, 255, 1)">null</span><span style="color: rgba(0, 0, 0, 1)">)             {                 </span><span style="color: rgba(0, 0, 255, 1)">this</span>.DbSetting =<span style="color: rgba(0, 0, 0, 1)"> ConfigHelper.GetDbSettings();             }             Init(dbConfigName);         }</span></pre> </div> <p>以替代原先的处理代码。原先的只能从.net framework的App.config中读取，现在我们需要根据框架来判断处理。</p> <div class="cnblogs_code"> <pre>        <span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> DbContext()         {             </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">默认采用配置项名             </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">appSettings/DefaultDb 配置项为指定连接字符串的name</span>             <span style="color: rgba(0, 0, 255, 1)">var</span> dbConfigName = ConfigurationManager.AppSettings[<span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">DefaultDb</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">];             Init(dbConfigName);         }</span></pre> </div> <p>我们先来定义一个承载数据库信息的实体类对象。</p> <div class="cnblogs_code"> <pre>    <span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;summary&gt;</span>     <span style="color: rgba(128, 128, 128, 1)">///</span><span style="color: rgba(0, 128, 0, 1)"> 数据库配置信息     </span><span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;/summary&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">class</span><span style="color: rgba(0, 0, 0, 1)"> DbSetting     {         </span><span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;summary&gt;</span>         <span style="color: rgba(128, 128, 128, 1)">///</span><span style="color: rgba(0, 128, 0, 1)"> 默认指定的连接字符串集合的配置项名称         </span><span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;/summary&gt;</span>         <span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">string</span> DbConfigName { <span style="color: rgba(0, 0, 255, 1)">get</span>; <span style="color: rgba(0, 0, 255, 1)">set</span><span style="color: rgba(0, 0, 0, 1)">; }          </span><span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;summary&gt;</span>         <span style="color: rgba(128, 128, 128, 1)">///</span><span style="color: rgba(0, 128, 0, 1)"> 数据库类型，默认为SQLServer         </span><span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;/summary&gt;</span>         <span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">string</span> DbType { <span style="color: rgba(0, 0, 255, 1)">get</span>; <span style="color: rgba(0, 0, 255, 1)">set</span>; } = <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">sqlserver</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">;          </span><span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;summary&gt;</span>         <span style="color: rgba(128, 128, 128, 1)">///</span><span style="color: rgba(0, 128, 0, 1)"> 连接字符串         </span><span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;/summary&gt;</span>         <span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">string</span> ConnectionString { <span style="color: rgba(0, 0, 255, 1)">get</span>; <span style="color: rgba(0, 0, 255, 1)">set</span><span style="color: rgba(0, 0, 0, 1)">; }      }</span></pre> </div> <p>在目标框架为.net framwork的时候，我们的App.Config配置信息是下面的。</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 255, 1)">&lt;?</span><span style="color: rgba(255, 0, 255, 1)">xml version="1.0" encoding="utf-8"</span><span style="color: rgba(0, 0, 255, 1)">?&gt;</span> <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">configuration</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>   <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">connectionStrings</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>     <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">Sqlserver数据库的连接字符串</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">add </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="sqlserver"</span><span style="color: rgba(255, 0, 0, 1)"> providerName</span><span style="color: rgba(0, 0, 255, 1)">="System.Data.SqlClient"</span><span style="color: rgba(255, 0, 0, 1)"> connectionString</span><span style="color: rgba(0, 0, 255, 1)">="Persist Security Info=False;Data Source=(local);Initial Catalog=WinFramework;Integrated Security=SSPI"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>     <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">MySQL数据库的连接字符串</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">add </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="mysql"</span><span style="color: rgba(255, 0, 0, 1)"> providerName</span><span style="color: rgba(0, 0, 255, 1)">="MySql.Data.MySqlClient"</span><span style="color: rgba(255, 0, 0, 1)"> connectionString</span><span style="color: rgba(0, 0, 255, 1)">="Server=localhost;Database=winframework;Uid=root;Pwd=123456;SslMode=none"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>     <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">sqlite数据库字符串，路径符号|DataDirectory|代表当前运行目录</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">add </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="sqlite"</span><span style="color: rgba(255, 0, 0, 1)"> providerName</span><span style="color: rgba(0, 0, 255, 1)">="System.Data.SQLite"</span><span style="color: rgba(255, 0, 0, 1)"> connectionString</span><span style="color: rgba(0, 0, 255, 1)">="Data Source=|DataDirectory|\WinFramework.db;Version=3;"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>     <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">PostgreSQL数据库的连接字符串</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">add </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="npgsql"</span><span style="color: rgba(255, 0, 0, 1)"> providerName</span><span style="color: rgba(0, 0, 255, 1)">="Npgsql"</span><span style="color: rgba(255, 0, 0, 1)"> connectionString</span><span style="color: rgba(0, 0, 255, 1)">="Server=localhost;Port=5432;Database=winframework;User Id=postgres;Password=123456"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>     <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">不受驱动影响，32位64位均可使用</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">add </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="oracle"</span><span style="color: rgba(255, 0, 0, 1)"> providerName</span><span style="color: rgba(0, 0, 255, 1)">="OracleManaged"</span><span style="color: rgba(255, 0, 0, 1)"> connectionString</span><span style="color: rgba(0, 0, 255, 1)">="Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)));User ID=win;Password=win"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>     <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">达梦数据库的连接字符串</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">add </span><span style="color: rgba(255, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">="Dm"</span><span style="color: rgba(255, 0, 0, 1)"> providerName</span><span style="color: rgba(0, 0, 255, 1)">="Dm"</span><span style="color: rgba(255, 0, 0, 1)"> connectionString</span><span style="color: rgba(0, 0, 255, 1)">="Server=localhost;User ID=SYSDBA;PWD=SYSDBA;Database=WINFRAMEWORK;"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>   <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">connectionStrings</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>      <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">appSettings</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>     <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">指定默认的数据库类型，如果不指定则使用第一个连接字符串</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">add </span><span style="color: rgba(255, 0, 0, 1)">key</span><span style="color: rgba(0, 0, 255, 1)">="DefaultDb"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="sqlserver"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>     <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">字典、权限组件的数据库类型：mysql、npgsql、oracle、sqlite、sqlserver等，默认为sqlserver可不写</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">add </span><span style="color: rgba(255, 0, 0, 1)">key</span><span style="color: rgba(0, 0, 255, 1)">="ComponentDbType"</span><span style="color: rgba(255, 0, 0, 1)"> value</span><span style="color: rgba(0, 0, 255, 1)">="sqlserver"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>   <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">appSettings</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>   <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">startup</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>     <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">supportedRuntime </span><span style="color: rgba(255, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">="v4.0"</span><span style="color: rgba(255, 0, 0, 1)"> sku</span><span style="color: rgba(0, 0, 255, 1)">=".NETFramework,Version=v4.8"</span> <span style="color: rgba(0, 0, 255, 1)">/&gt;</span>   <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">startup</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre> </div> <p>而如果是基于.net core的情况下，读取的是appSettings.json里面的配置信息，配置文件信息如下所示。</p> <div class="cnblogs_code"> <pre><span style="color: rgba(0, 0, 0, 1)">{   </span>"ConnectionStrings"<span style="color: rgba(0, 0, 0, 1)">: {     </span>"Default": "Server=.; Database=WeixinBootstrap2; Trusted_Connection=True;"<span style="color: rgba(0, 0, 0, 1)">,     </span>"Oracle": "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=orcl)));User ID=C##ABP;Password=abp"<span style="color: rgba(0, 0, 0, 1)">,     </span>"MySql": "Server=localhost;Database=myprojectdb;Uid=root;Pwd=123456;"<span style="color: rgba(0, 0, 0, 1)">,     </span>"PostgreSQL": "Server=localhost;Port=5432;Database=myprojectdb;User Id=postgres;Password=123456"<span style="color: rgba(0, 0, 0, 1)">   },   </span>"DbSetting"<span style="color: rgba(0, 0, 0, 1)">: {     </span>"DefaultDb": "Default"<span style="color: rgba(0, 0, 0, 1)">,     </span>"ComponentDbType": "sqlserver"<span style="color: rgba(0, 0, 0, 1)">   },     ...........       }</span></pre> </div> <p>其中 DefaultDb 指向的是默认的连接字符串配置节点名称，而ComponentDbType为它的数据库类型，如sqlserver,mysql这样的标识。</p> <p> </p> <h3>2、根据不同目标框架读取配置信息</h3> <p>有了上面不同目标框架下的配置信息节点的格式，我们就可以根据目标框架的不同来相应读取配置信息，从而实现不同的初始化处理操作。</p> <div class="cnblogs_code"> <pre>        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ &lt;summary&gt;</span>         <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ 根据承载环境是netframework或者是.netcore，读取配置信息。</span>         <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ 在.netframework中的app.config的appSettings中配置DefaultDb，ComponentDbType，连接字符串在connectionStrings中配置</span>         <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ 在.netcore中的appSettings.json的DbSetting节点中配置DefaultDb，ComponentDbType，连接字符串在ConnectionStrings中配置</span>         <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ &lt;/summary&gt;</span>         <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ &lt;returns&gt;&lt;/returns&gt;</span> <span style="color: rgba(0, 0, 0, 1)">        public static DbSetting GetDbSettings()         {             </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">初始化承载配置信息对象</span>             <span style="color: rgba(0, 0, 255, 1)">var</span> dbSetting = <span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> DbSetting();  #</span><span style="color: rgba(0, 0, 255, 1)">if</span><span style="color: rgba(0, 0, 0, 1)"> NETFRAMEWORK             </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">基于.net frameowork下读取app.config的配置</span>             dbSetting.DbType = ConfigurationManager.AppSettings["ComponentDbType"] ?? "sqlserver"<span style="color: rgba(0, 0, 0, 1)">;             dbSetting.DbConfigName </span>= ConfigurationManager.AppSettings["DefaultDb"<span style="color: rgba(0, 0, 0, 1)">];              </span><span style="color: rgba(0, 0, 255, 1)">var</span> setting = ConfigurationManager.ConnectionStrings[1];<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">默认第一个连接字符串</span>             <span style="color: rgba(0, 0, 255, 1)">if</span> (!<span style="color: rgba(0, 0, 0, 1)">string.IsNullOrWhiteSpace(dbSetting.DbConfigName))             {                 </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">如果配置节点名称存在，则读取它的连接字符串</span>                 setting =<span style="color: rgba(0, 0, 0, 1)"> ConfigurationManager.ConnectionStrings[dbSetting.DbConfigName];             }             </span><span style="color: rgba(0, 0, 255, 1)">if</span> (setting != <span style="color: rgba(0, 0, 255, 1)">null</span><span style="color: rgba(0, 0, 0, 1)">)             {                 dbSetting.ConnectionString </span>=<span style="color: rgba(0, 0, 0, 1)"> setting.ConnectionString;             } #</span><span style="color: rgba(0, 0, 255, 1)">else</span>             <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">基于.net core下的读取appsettings.json的配置信息</span>             dbSetting.DbType = GetSectionValue("DbSetting:ComponentDbType") ?? "sqlserver"<span style="color: rgba(0, 0, 0, 1)">;             dbSetting.DbConfigName </span>= GetSectionValue("DbSetting:DefaultDb"<span style="color: rgba(0, 0, 0, 1)">);                          </span><span style="color: rgba(0, 0, 255, 1)">var</span> connectionStringKey = string.Format("ConnectionStrings:{0}"<span style="color: rgba(0, 0, 0, 1)">, dbSetting.DbConfigName);             dbSetting.ConnectionString </span>=<span style="color: rgba(0, 0, 0, 1)"> GetSectionValue(connectionStringKey); #endif             </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> dbSetting;         }</span></pre> </div> <p>我们可以从类的顶部来选择对应的分类，从而实现代码的加亮显示，便于代码的编写。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220501/ec7f47df2b6266ac3052ef2db3c90967.jpg" alt="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 - 伍华聪 _在线工具"></p> <p>另外，我们根据配置信息的数据库类型，通过遍历判断的方式来转换为SqlSugar对应的数据库类型即可。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220501/5fee43b6ec5d83d4114fe6111fca4fc1.jpg" alt="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 - 伍华聪 _在线工具"></p> <p>这样DbContext初始化的时候，就能够顺利适用于不同的目标框架中了，我们在SQLSugar封装的基类就可以不管它的具体处理，只需要初始化DbContext即可，如下代码所示。</p> <p><img decoding="async" src="http://img.555519.xyz/uploads3/20220501/0c44f3b2a06a8a33af66533d31c0f49e.jpg" alt="基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 - 伍华聪 _在线工具"></p> <p>基类调用来处理常规的对象返回操作，代码如下所示。</p> <div class="cnblogs_code"> <pre>        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ &lt;summary&gt;</span>         <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ 获取所有记录</span>         <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">/ &lt;/summary&gt;</span>         public virtual async Task&lt;ListResultDto&lt;TEntity&gt;&gt;<span style="color: rgba(0, 0, 0, 1)"> GetAllAsync()         {             </span><span style="color: rgba(0, 0, 255, 1)">var</span> list =<span style="color: rgba(0, 0, 0, 1)"> await EntityDb.GetListAsync();             </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">new</span> ListResultDto&lt;TEntity&gt;<span style="color: rgba(0, 0, 0, 1)">()             {                 Items </span>=<span style="color: rgba(0, 0, 0, 1)"> list             };         }</span></pre> </div> <p>而如果我们需要联合多表来实现联合查询，也可以使用基类的对象进行处理。</p> <p>如对于字典来说，根据字典大类名称来获取字典项目信息，而字典项目表里面，只有字典大类的ID，那么就需要联合字典大类和字典项目两个表进行关联查询了，如下代码所示。</p> <div class="cnblogs_code"> <pre>        <span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;summary&gt;</span>         <span style="color: rgba(128, 128, 128, 1)">///</span><span style="color: rgba(0, 128, 0, 1)"> 根据字典类型名称获取所有该类型的字典列表集合(Key为名称，Value为值）         </span><span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;/summary&gt;</span>         <span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;param name="dictTypeName"&gt;</span><span style="color: rgba(0, 128, 0, 1)">字典类型名称</span><span style="color: rgba(128, 128, 128, 1)">&lt;/param&gt;</span>         <span style="color: rgba(128, 128, 128, 1)">///</span> <span style="color: rgba(128, 128, 128, 1)">&lt;returns&gt;&lt;/returns&gt;</span>         <span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">async</span> Task&lt;Dictionary&lt;<span style="color: rgba(0, 0, 255, 1)">string</span>, <span style="color: rgba(0, 0, 255, 1)">string</span>&gt;&gt; GetDictByDictType(<span style="color: rgba(0, 0, 255, 1)">string</span><span style="color: rgba(0, 0, 0, 1)"> dictTypeName)         {             </span><span style="color: rgba(0, 0, 255, 1)">var</span> query = <span style="color: rgba(0, 0, 255, 1)">this</span>.dbContent.Client.<strong>Queryable&lt;DictDataInfo, DictTypeInfo&gt;</strong><span style="color: rgba(0, 0, 0, 1)">(                 <strong>(d, t) </strong></span><strong>=&gt; d.DictType_ID == t.Id &amp;&amp; t.Name ==</strong><span style="color: rgba(0, 0, 0, 1)"><strong> dictTypeName)</strong>                 .Select(d </span>=&gt; d); <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">联合条件获取对象</span> <span style="color: rgba(0, 0, 0, 1)">             query </span>= query.OrderBy(d =&gt; d.DictType_ID).OrderBy(d =&gt; d.Seq);<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">排序</span>             <span style="color: rgba(0, 0, 255, 1)">var</span> list = <span style="color: rgba(0, 0, 255, 1)">await</span> query.ToListAsync();<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">获取列表</span>              <span style="color: rgba(0, 0, 255, 1)">var</span> dict = <span style="color: rgba(0, 0, 255, 1)">new</span> Dictionary&lt;<span style="color: rgba(0, 0, 255, 1)">string</span>, <span style="color: rgba(0, 0, 255, 1)">string</span>&gt;<span style="color: rgba(0, 0, 0, 1)">();             </span><span style="color: rgba(0, 0, 255, 1)">foreach</span> (<span style="color: rgba(0, 0, 255, 1)">var</span> info <span style="color: rgba(0, 0, 255, 1)">in</span><span style="color: rgba(0, 0, 0, 1)"> list)             {                 </span><span style="color: rgba(0, 0, 255, 1)">if</span> (!<span style="color: rgba(0, 0, 0, 1)">dict.ContainsKey(info.Name))                 {                     dict.Add(info.Name, info.Value);                 }             }             </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> dict;         }</span></pre> </div> <p>这样就可以实现联合表的查询处理。</p> <p>至此，我们就可以无差别的在不同的目标框架上，根据不同的配置文件来初始化我们的DbContext类，从而无差别的使用基于SqlSugar的数据库访问处理的基类，简化了框架的处理。</p> <p> </p> <p>相关随笔列表如下所示。</p> <div class="PostList"> <div class="postTitl2">基于SqlSugar的数据库访问处理的封装，支持.net FrameWork和.net core的项目调用 <span class="postDesc2"><span class="post-view-count" data-post-id="16205535"><span class="post-comment-count" data-post-id="16205535"><span class="post-digg-count" data-post-id="16205535"> （本篇随笔）</span></span></span></span> </div> <div class="postText2"> </div> </div> <div class="PostList"> <div class="postTitl2"> <a id="PostsList1_rpPosts_TitleUrl_2" class="vertical-middle" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/wuhuacong/p/15992688.html"   rel="nofollow">基于SqlSugar的数据库访问处理的封装，支持多数据库并使之适应于实际业务开发中(2) </a><span class="postDesc2"><br /></span> </div> <div class="postText2"> </div> </div> <div class="PostList"> <div class="postTitl2"> <a id="PostsList1_rpPosts_TitleUrl_3" class="vertical-middle" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/wuhuacong/p/15979319.html"   rel="nofollow">基于SqlSugar的数据库访问处理的封装，支持多数据库并使之适应于实际业务开发中 </a><span class="postDesc2"><span class="post-view-count" data-post-id="15979319"><span class="post-comment-count" data-post-id="15979319"><span class="post-digg-count" data-post-id="15979319">  </span></span></span></span> </div> <div class="postTitl2"> </div> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-83820.htm">CSS中的几种图片覆盖文本的方法</a></p>
+                                        <p>下一个：<a href="/news/article-84536.htm">使用VS  新建C++项目</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-3-10-free-node-subscribe.htm" title="3月10日最新机场订阅 | 19.3M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享">3月10日最新机场订阅 | 19.3M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-67619.htm" title="动物医院实践心得2500字内容（动物医院实训总结）">动物医院实践心得2500字内容（动物医院实训总结）</a></li>
+                        <li class="py-2"><a href="/news/article-82399.htm" title="JS脚本按顺序依次加载执行">JS脚本按顺序依次加载执行</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-30-node-share.htm" title="3月30日最新机场订阅 | 19.2M/S|2025年V2ray/SSR/Clash/Shadowrocket免费节点地址链接分享">3月30日最新机场订阅 | 19.2M/S|2025年V2ray/SSR/Clash/Shadowrocket免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-83820.htm" title="CSS中的几种图片覆盖文本的方法">CSS中的几种图片覆盖文本的方法</a></li>
+                        <li class="py-2"><a href="/news/article-85253.htm" title="厦门哪里领养狗狗（厦门领养狗狗的地方）">厦门哪里领养狗狗（厦门领养狗狗的地方）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-12-free-high-speed-nodes.htm" title="3月12日最新机场订阅 | 19.8M/S|2025年V2ray/Shadowrocket/SSR/Clash免费节点地址链接分享">3月12日最新机场订阅 | 19.8M/S|2025年V2ray/Shadowrocket/SSR/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-21-node-share.htm" title="3月21日最新机场订阅 | 21.6M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享">3月21日最新机场订阅 | 21.6M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-25-free-ssr-node.htm" title="3月25日最新机场订阅 | 21.6M/S|2025年V2ray/Clash/SSR/Shadowrocket免费节点地址链接分享">3月25日最新机场订阅 | 21.6M/S|2025年V2ray/Clash/SSR/Shadowrocket免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-20-node-share-links.htm" title="3月20日最新机场订阅 | 21.5M/S|2025年Shadowrocket/Clash/V2ray/SSR免费节点地址链接分享">3月20日最新机场订阅 | 21.5M/S|2025年Shadowrocket/Clash/V2ray/SSR免费节点地址链接分享</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">3</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            <p>
+                <a href="/">首页</a> |
+                <a href="/free-node/">免费节点</a> |
+                <a href="/news/">新闻资讯</a> |
+                <a href="/about-us.htm">关于我们</a> |
+                <a href="/disclaimer.htm">免责申明</a> |
+                <a href="/privacy.htm">隐私申明</a> |
+                <a href="/sitemap.xml">网站地图</a>
+            </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
