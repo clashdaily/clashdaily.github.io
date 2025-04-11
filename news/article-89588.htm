@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-89588.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Git恢复之前版本的两种方法reset、revert（图文详解）</title>
+        <meta name="description" content="2019/7/27 修改更新  一、问题描述  在利用github实现多人合作程序开发的过程中，我们有时会出现错误提交的情况，此时我们希望能撤销提交操作，让程序回到提交前的样子，本文总结了两种解决方法" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-89588.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="Git恢复之前版本的两种方法reset、revert（图文详解）" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/bc8062761b17f8d895a59f7098f542c4.webp" />
+        <meta property="og:release_date" content="2025-04-06T10:06:59" />
+    <meta property="og:updated_time" content="2025-04-06T10:06:59" />
+        <meta property="og:description" content="2019/7/27 修改更新  一、问题描述  在利用github实现多人合作程序开发的过程中，我们有时会出现错误提交的情况，此时我们希望能撤销提交操作，让程序回到提交前的样子，本文总结了两种解决方法" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Git恢复之前版本的两种方法reset、revert（图文详解）">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                Git恢复之前版本的两种方法reset、revert（图文详解）                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <blockquote> <p>2019/7/27 修改更新</p> </blockquote> <h2><a id="_2" rel="nofollow"></a><strong>一、问题描述</strong></h2> <blockquote> <p>在利用github实现多人合作程序开发的过程中，我们有时会出现<strong>错误提交</strong>的情况，此时我们希望能撤销提交操作，让程序回到提交前的样子，本文总结了两种解决方法：回退（reset）、反做（revert）。</p> </blockquote> <h2><a id="_5" rel="nofollow"></a><strong>二、背景知识</strong></h2> <blockquote> <h4><a id="gitHEAD_6" rel="nofollow"></a><strong>git的版本管理，及HEAD的理解</strong></h4> <p>使用git的每次提交，Git都会自动把它们串成一条时间线，这条时间线就是一个分支。如果没有新建分支，那么只有一条时间线，即只有一个分支，在Git里，这个分支叫主分支，即master分支。有一个HEAD指针指向当前分支（只有一个分支的情况下会指向master，而master是指向最新提交）。每个版本都会有自己的版本信息，如特有的版本号、版本名等。如下图，假设只有一个分支：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/425f6ae49755cf2ea1b2bb87efefec90.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"></p> </blockquote> <h2><a id="_10" rel="nofollow"></a><strong>三、解决方法</strong></h2> <h3><a id="git_reset_11" rel="nofollow"></a><strong>方法一：git reset</strong></h3> <p><strong>原理：</strong> git reset的作用是修改HEAD的位置，即将HEAD指向的位置改变为之前存在的某个版本，如下图所示，假设我们要回退到版本一：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/4b4b9b048eccbb87490982686d3b3a6a.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /><strong>适用场景：</strong> 如果想恢复到之前某个提交的版本，且那个版本之后提交的版本我们都不要了，就可以用这种方法。</p> <h4><a id="_15" rel="nofollow"></a><strong>具体操作：</strong></h4> <p><strong>1. 查看版本号：</strong><br /> 可以使用命令“git log”查看：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/f3e3560d28836c1b7bd06586186f4e0b.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /> 也可以在github网站上查看：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/28bac5a5e5266849aef7764a912f1928.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /><strong>2. 使用“git reset --hard 目标版本号”命令将版本回退：</strong><br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/aea876c930cafab864fde89d37020e72.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /> 再用“git log”查看版本信息，此时本地的HEAD已经指向之前的版本：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/452eed4003d3171fce0f0b56a5b5f4c8.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /><strong>3. 使用“git push -f”提交更改：</strong><br /> 此时如果用“git push”会报错，因为我们本地库HEAD指向的版本比远程库的要旧：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/3e8d9c96fd67a5f31437f3cd6e7beb2a.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /> 所以我们要用“git push -f”强制推上去，就可以了：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/dddf76a3f679acba1ab4048960d66f64.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /> 在github图形化界面上看，远程库的HEAD也已经指向目标版本：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/fa4df6310c2477e1840afe671db78efc.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"></p> <h4><a id="_33" rel="nofollow"></a><strong>回退成功！</strong></h4> <h3><a id="git_revert_34" rel="nofollow"></a><strong>方法二：git revert</strong></h3> <p><strong>原理：</strong> git revert是用于“反做”某一个版本，以达到撤销该版本的修改的目的。比如，我们commit了三个版本（版本一、版本二、 版本三），突然发现版本二不行（如：有bug），想要撤销版本二，但又不想影响撤销版本三的提交，就可以用 git revert 命令来反做版本二，生成新的版本四，这个版本四里会保留版本三的东西，但撤销了版本二的东西。如下图所示：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/57791136c6a218f6c202a843e51d525e.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /><strong>适用场景：</strong> 如果我们想撤销之前的某一版本，但是又想保留该目标版本后面的版本，记录下这整个版本变动流程，就可以用这种方法。</p> <h4><a id="_38" rel="nofollow"></a><strong>具体操作：</strong></h4> <p>举个例子，现在库里面有三个文件：READ.md、text.txt、text2.txt。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/865c088cfddda171cfdceafc612bc261.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /><strong>1. 查看版本号：</strong><br /> 可以通过命令行查看（输入git log）：<br /> 如图，最近的两个版本分别叫：“add text.txt”（即新增了文件text.txt）、“add text2.txt”（新增了文件text2.txt）。这个时候我们不需要text.txt这个文件了，那就是说不想要“add text.txt”那个版本的操作，那可以通过反做“add text.txt”这个版本来实现。<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/027d4b2062e317493d845bfe0880425d.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /> 也可以通过github网站图形化界面查看版本号：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/d7028400198c55f9df20b0a31bfcf689.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /><strong>2.使用“git revert -n 版本号”反做，并使用“git commit -m 版本名”提交：</strong><br /> （1）反做，使用“git revert -n 版本号”命令。如下命令，我们反做版本号为8b89621的版本：</p> <pre><code class="prism language-sh">git revert -n 8b89621019c9adc6fc4d242cd41daeb13aeb9861</code></pre> <p><strong>注意：</strong> 这里可能会出现冲突，那么需要手动修改冲突的文件。而且要git add 文件名。<br /> （2）提交，使用“git commit -m 版本名”，如：</p> <pre><code class="prism language-sh">git commit -m "revert add text.txt"</code></pre> <p>此时可以用“git log”查看本地的版本信息，可见多生成了一个新的版本，该版本反做了“add text.txt”版本，但是保留了“add text2.txt”版本：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/609031c95332d64f1861b563e038d93d.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /><strong>3.使用“git push”推上远程库：</strong></p> <pre><code class="prism language-sh">git push</code></pre> <p>查看github上显示的远程库版本信息：<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/03538b6b7b1e6058c312064072a733df.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"><br /> 此时查看仓库的文件，剩下两个：READ.md、text2.txt<br /><img decoding="async" src="http://img.555519.xyz/uploads3/20220608/79d9c5adaafec719d19ba24845cd65a9.jpg" alt="Git恢复之前版本的两种方法reset、revert（图文详解）"></p> <h4><a id="_73" rel="nofollow"></a><strong>反做成功！</strong></h4> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-88874.htm">动物疫苗厂家有哪些品牌的 动物疫苗厂家有哪些品牌的好</a></p>
+                                        <p>下一个：<a href="/news/article-89589.htm">猫咪领养协议有法律效应吗知乎（宠物猫领养协议书范本）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-3-21-node-share.htm" title="3月21日最新机场订阅 | 21.6M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享">3月21日最新机场订阅 | 21.6M/S|2025年Clash/Shadowrocket/SSR/V2ray免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-81689.htm" title="Zalando Postgres Operator  快速上手">Zalando Postgres Operator  快速上手</a></li>
+                        <li class="py-2"><a href="/news/article-91119.htm" title="合肥哪里能领养宠物狗 合肥哪里能领养宠物狗狗">合肥哪里能领养宠物狗 合肥哪里能领养宠物狗狗</a></li>
+                        <li class="py-2"><a href="/news/article-85252.htm" title="猫三联一共几针,间隔多久打一次啊（猫三联疫苗多久一针）">猫三联一共几针,间隔多久打一次啊（猫三联疫苗多久一针）</a></li>
+                        <li class="py-2"><a href="/news/article-71531.htm" title="优雅高效的Mac环境配置教程：从零开始八步走">优雅高效的Mac环境配置教程：从零开始八步走</a></li>
+                        <li class="py-2"><a href="/news/article-89588.htm" title="Git恢复之前版本的两种方法reset、revert（图文详解）">Git恢复之前版本的两种方法reset、revert（图文详解）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-7-clash-windows.htm" title="4月7日最新机场订阅 | 21.1M/S|2025年Shadowrocket/Clash/V2ray/SSR免费节点地址链接分享">4月7日最新机场订阅 | 21.1M/S|2025年Shadowrocket/Clash/V2ray/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-84537.htm" title="正规免费领养宠物猫app（正规免费领养宠物猫电话）">正规免费领养宠物猫app（正规免费领养宠物猫电话）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-7-clash-node.htm" title="3月7日最新机场订阅 | 18M/S|2025年Clash/V2ray/Shadowrocket/SSR免费节点地址链接分享">3月7日最新机场订阅 | 18M/S|2025年Clash/V2ray/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-78945.htm" title="武汉宠物领养中心官网地址电话（武汉宠物猫领养中心）">武汉宠物领养中心官网地址电话（武汉宠物猫领养中心）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">24</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
