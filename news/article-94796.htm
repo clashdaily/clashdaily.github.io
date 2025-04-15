@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://clashdaily.github.io/news/article-94796.htm" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>asyncio 异步编程_在线工具</title>
+        <meta name="description" content="首先了解一下协程，协程的本质就是一条线程，多个任务在一条线程上来回切换，协程的所有切换都是基于用户，只有在用户级别才能感知到的 IO 才会用协程模块来规避，在 python 中主要使用的协程模块是 a" />
+        <link rel="icon" href="/assets/website/img/clashdaily/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="Clash Daily免费订阅地址每日更新">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://clashdaily.github.io/news/article-94796.htm" />
+    <meta property="og:site_name" content="Clash Daily免费订阅地址每日更新" />
+    <meta property="og:title" content="asyncio 异步编程_在线工具" />
+    <meta property="og:image" content="https://clashdaily.github.io/uploads/20250110/ed58143b27c86f57a8b4dfda091fa457.webp" />
+        <meta property="og:release_date" content="2025-04-13T07:18:22" />
+    <meta property="og:updated_time" content="2025-04-13T07:18:22" />
+        <meta property="og:description" content="首先了解一下协程，协程的本质就是一条线程，多个任务在一条线程上来回切换，协程的所有切换都是基于用户，只有在用户级别才能感知到的 IO 才会用协程模块来规避，在 python 中主要使用的协程模块是 a" />
+        
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="asyncio 异步编程_在线工具">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/website/css/clashdaily/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/website/css/clashdaily/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/assets/website/css/clashdaily/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/assets/website/css/clashdaily/style.min.css" rel="stylesheet">
+    <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+        height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .carousel {
+            height: 100vh;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+        .navbar:not(.top-nav-collapse) {
+            background: #1C2331 !important;
+        }
+    }
+    </style>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QCN2RGZW4R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QCN2RGZW4R');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+        <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand xcblog-blog-logo" href="/">
+                                <span>Clash Daily</span>
+                            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/">首页</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/free-nodes/">免费节点</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/paid-subscribe/">推荐机场</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/client.htm">客户端</a>
+                    </li>
+                                        <li class="nav-item">
+                        <a class="nav-link" href="/news/">新闻资讯</a>
+                    </li>
+                                    </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view" style="background-image: url(/assets/website/img/clashdaily/93.jpg); background-repeat: no-repeat; background-size: cover;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="text-center white-text mx-5 wow fadeIn">
+                            <h1 class="mb-4">
+                                asyncio 异步编程_在线工具                            </h1>
+                            <p>
+                                <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / 正文
+                            </p>
+                        </div>
+                        <!-- Content -->
+                    </div>
+                    <!-- Mask & flexbox options-->
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            <section class="mt-5">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Node官网订阅站" data-url="https://clashnode.github.io">
+                  				  				  				<p>首先了解一下协程，协程的本质就是一条线程，多个任务在一条线程上来回切换，协程的所有切换都是基于用户，只有在用户级别才能感知到的 IO 才会用协程模块来规避，在 python 中主要使用的协程模块是 asyncio，并且基于 async 和 await 关键字的协程可以实现异步编程，这也是目前 python 异步相关的主流技术。</p> </h1> <p>事件循环它其实是异步编程中的一个非常重要的环节，可以把它当成一个死循环，它会去检查并执行一些代码。</p> <p><strong>示例：</strong>伪代码</p> <pre><code>任务列表 = [ 任务1, 任务2, 任务3,... ]  while True:     可执行的任务列表，已完成的任务列表 = 去任务列表中检查所有的任务，将'可执行'和'已完成'的任务返回          for 就绪任务 in 已准备就绪的任务列表:         执行已就绪的任务          for 已完成的任务 in 已完成的任务列表:         在任务列表中移除 已完成的任务          如果 任务列表 中的任务都已完成，则终止循环 </code></pre> <blockquote> <p>通过上述伪代码就会发现这个事件循环就是可以理解成一个死循环在检查一个列表里的任务，如果列表里面的任务是可执行的，那就去执行这个任务，如果是不可执行（指的是遇到 IO 操作）的，那么在检查的时候就根本检查不到，相当于把 这个任务忽略掉，认为它不需要被执行，让它一直在等待着 IO 请求，当 IO 完成之后在去执行这个任务。</p> </blockquote> <p>获取和创建事件循环</p> <pre><code class="language-python">import asyncio  # 生成和获取一个事件循环 loop = asyncio.get_event_loop()  # 给事件循环添加任务，让事件循环去检测这个任务的状态是否可运行 loop.run_until_complete(任务) </code></pre> </h1> <p>async 是一个关键字，用于定义一个协程函数。</p> <p>协程函数：定义函数的时候使用 <code>async def 函数名</code>。</p> <p>协程对象：执行 <code>协程函数()</code> 得到的协程对象。</p> <pre><code class="language-python"># 定义一个协程函数 async def func():     pass  # 调用协程函数，返回一个协程对象 result = func() </code></pre> <p>调用协程函数的时候，函数内部的代码不会执行，只会返回一个协程对象。</p> <p>如果想要运行协程函数内部代码，必须要将协程对象交给事件循环来处理。</p> <pre><code class="language-python">import asyncio  async def func():     print('这是一个协程函数！')           result = func  # 方式一： loop = asyncio.get_event_loop()   # 生成一个事件循环 loop.run_until_complete( result ) # 将协程对象添加到事件循环执行   # 方式二：python 3.7 之后使用，本质上还是和上面一样，但是比较简单 asyncio.run( result ) </code></pre> </h1> <p>await 也是一个关键字，它主要是在当前任务1遇到 IO 操作的时候切到其他没有 IO 操作的任务2去执行，让事件循环可以去执行其他任务，当任务1的 IO 操作执行完后再切换回来执行 await 之后的内容。</p> <p>await 的后面只能加可等待的对象（协程对象、Task对象 ....）</p> <p><strong>示例：</strong></p> <pre><code class="language-python">import asyncio   async def others():     print('others -----&gt; start')     await asyncio.sleep(2)     print('others -----&gt; end')     return '返回值'   async def fun():     print('执行协程函数内部代码！')          # 遇到IO操作挂起当前协程（任务），等IO操作完成之后再继续往下执行。当前协程挂起时，事件循环可以去执行其他协程（任务）。     response = await others()	# 它会等有返回值了才会继续往下执行     print('IO请求结束，结果为：', response)  asyncio.run(fun())   # 输出： 执行协程函数内部代码！ others -----&gt; start others -----&gt; end IO请求结束，结果为： 返回值 </code></pre> <blockquote> <p>从上面这个示例可以看出来 await 就是等待对应后面的值得到结果之后，在向下继续执行！</p> <p>由于在这个示例中事件循环列表中只有一个任务，所以在 IO 等待时无法演示切换到其他任务的执行效果，在程序中如果想要创建多个任务对象，需要使用 Task 对象来实现。</p> </blockquote> </h1> <p>Task 用于并发调度协程，在事件循环中添加多个任务。</p> <p>本质上是将协程对象封装成 Task 对象，并将该协程加入事件循环，同时追踪协程的状态。</p> <p><strong>示例1：</strong>通过<code>asyncio.create_task(协程对象)</code>添加任务。</p> <pre><code class="language-python">import asyncio   async def func(i):     print(i, '---&gt;start')     await asyncio.sleep(1)     print(i, '---&gt;end')     return f'返回值{i}'   async def main():     print('main start')      # 创建 Task 对象并添加到事件循环中     task1 = asyncio.create_task(func(1))     task2 = asyncio.create_task(func(2))      print('main end') 	     # 此处await会自动切换执行其他任务。例如：task1，task2     ret1 = await task1     ret2 = await task2     print(ret1, ret2)  asyncio.run(main())  # 输出： main start main end 1 ---&gt;start 2 ---&gt;start 1 ---&gt;end 2 ---&gt;end 返回值1 返回值2 </code></pre> <p><strong>示例2：</strong>通过<code>asyncio.wait(协程对象列表)</code>添加任务，在它的源码中会通过 <code>ensure_future</code> 把每个协程封装成 Task 对象。</p> <pre><code class="language-python">import asyncio   async def func(i):     print(i, '---&gt;start')     await asyncio.sleep(1)  # 当遇到IO操作挂起当前协程并切换其他协程     print(i, '---&gt;end')     return f'返回值{i}'   task_list = [func(1), func(2)]  # 如果设置了 timeout 值，则意味着此处最多等待的秒，完成的协程返回值写入done中，未完成的写入pending done, pending = asyncio.run(asyncio.wait(task_list, timeout=None))   # 输出： 1 ---&gt;start 2 ---&gt;start 1 ---&gt;end 2 ---&gt;end </code></pre> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-94246.htm">北京动物疫苗生产厂家排名（北京动物疫苗生产厂家排名榜）</a></p>
+                                        <p>下一个：<a href="/news/article-94799.htm">动物疫苗属于生物农业吗为什么不能用生物制品（动物疫苗是什么单位）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-91119.htm" title="合肥哪里能领养宠物狗 合肥哪里能领养宠物狗狗">合肥哪里能领养宠物狗 合肥哪里能领养宠物狗狗</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-6-clash-v2ray-ss-ssr.htm" title="4月6日最新机场订阅 | 22.2M/S|2025年Clash/V2ray/Shadowrocket/SSR免费节点地址链接分享">4月6日最新机场订阅 | 22.2M/S|2025年Clash/V2ray/Shadowrocket/SSR免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-75535.htm" title="编码器原理与电机转速、角度控制">编码器原理与电机转速、角度控制</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-13-free-subscribe-node.htm" title="4月13日最新机场订阅 | 21.1M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享">4月13日最新机场订阅 | 21.1M/S|2025年Shadowrocket/SSR/V2ray/Clash免费节点地址链接分享</a></li>
+                        <li class="py-2"><a href="/news/article-94796.htm" title="asyncio 异步编程_在线工具">asyncio 异步编程_在线工具</a></li>
+                        <li class="py-2"><a href="/news/article-88874.htm" title="动物疫苗厂家有哪些品牌的 动物疫苗厂家有哪些品牌的好">动物疫苗厂家有哪些品牌的 动物疫苗厂家有哪些品牌的好</a></li>
+                        <li class="py-2"><a href="/news/article-69573.htm" title="动物疫苗保质期一般多久有效啊（动物疫苗管多久）">动物疫苗保质期一般多久有效啊（动物疫苗管多久）</a></li>
+                        <li class="py-2"><a href="/news/article-72848.htm" title="[js] 回调函数 回调地狱 Promise async/await">[js] 回调函数 回调地狱 Promise async/await</a></li>
+                        <li class="py-2"><a href="/news/article-96294.htm" title="Java Arrays工具类的使用">Java Arrays工具类的使用</a></li>
+                        <li class="py-2"><a href="/news/article-74185.htm" title="宠物粮食店一年利润怎么样计算呢多少钱 宠物粮食店一年利润怎么样计算呢多少钱一个月">宠物粮食店一年利润怎么样计算呢多少钱 宠物粮食店一年利润怎么样计算呢多少钱一个月</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">45</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!--Main layout-->
+        <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+                                <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+            <p class="text-white-50 f-15 mb-0">
+                <a href="/">Clash Daily免费订阅地址每日更新</a> 版权所有 Powered by WordPress
+            </p>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/assets/website/js/frontend/clashdaily/mdb.min.js"></script>
+    <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+    <script src="/assets/website/js/frontend/G.js"></script>
+</body>
+
+</html>
