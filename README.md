@@ -1,4 +1,4 @@
-# 12月8日最新机场订阅 | 22.2M/S|2025年V2ray节点/SSR节点/Singbox节点/Shadowrocket节点/Clash节点免费节点地址链接分享  更新时间 2025-12-08 10:33:22
+# 12月16日最新机场订阅 | 19M/S|2025年Clash节点/Shadowrocket节点/Singbox节点/SSR节点/V2ray节点免费节点地址链接分享  更新时间 2025-12-16 09:36:20
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://clashdaily.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,23 +9,23 @@
 
 ### 免费Clash节点订阅链接
 
-- https://clashdaily.github.io/uploads/2025/12/0-20251208.yaml
-- https://clashdaily.github.io/uploads/2025/12/1-20251208.yaml
-- https://clashdaily.github.io/uploads/2025/12/2-20251208.yaml
-- https://clashdaily.github.io/uploads/2025/12/3-20251208.yaml
-- https://clashdaily.github.io/uploads/2025/12/4-20251208.yaml
+- https://clashdaily.github.io/uploads/2025/12/0-20251216.yaml
+- https://clashdaily.github.io/uploads/2025/12/1-20251216.yaml
+- https://clashdaily.github.io/uploads/2025/12/2-20251216.yaml
+- https://clashdaily.github.io/uploads/2025/12/3-20251216.yaml
+- https://clashdaily.github.io/uploads/2025/12/4-20251216.yaml
 
 ### 免费V2ray节点订阅链接
 
-- https://clashdaily.github.io/uploads/2025/12/0-20251208.txt
-- https://clashdaily.github.io/uploads/2025/12/1-20251208.txt
-- https://clashdaily.github.io/uploads/2025/12/2-20251208.txt
-- https://clashdaily.github.io/uploads/2025/12/3-20251208.txt
-- https://clashdaily.github.io/uploads/2025/12/4-20251208.txt
+- https://clashdaily.github.io/uploads/2025/12/0-20251216.txt
+- https://clashdaily.github.io/uploads/2025/12/1-20251216.txt
+- https://clashdaily.github.io/uploads/2025/12/2-20251216.txt
+- https://clashdaily.github.io/uploads/2025/12/3-20251216.txt
+- https://clashdaily.github.io/uploads/2025/12/4-20251216.txt
 
 ### 免费Sing-box节点订阅链接
 
-- https://clashdaily.github.io/uploads/2025/12/20251208.json
+- https://clashdaily.github.io/uploads/2025/12/20251216.json
 
 ## 更多Clash节点订阅 ：
 
